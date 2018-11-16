@@ -5,6 +5,11 @@
 	padding: 2px;
 }
 
+.fa {
+	font-size: 5em;
+	font-color: green;
+}
+
 .todoblock {
 	position: relative;
 	float: center;

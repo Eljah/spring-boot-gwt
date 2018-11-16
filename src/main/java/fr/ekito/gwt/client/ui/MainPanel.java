@@ -12,10 +12,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 
 import fr.ekito.gwt.client.event.AddTodoEvent;
@@ -47,16 +44,19 @@ public class MainPanel extends Composite {
 	ImageButton addButton;
 
 	@UiField
-	ImageButton clearButton;
+	Button clearButton;
 
 	@UiField
 	ImageButton loadButton;
 
-	@UiField
-	TextBox textBox;
+	//@UiField
+	//TextBox textBox;
 
 	@UiField
 	FlowPanel todoPanel;
+
+	@UiField
+	TabPanel tp = new TabPanel();
 
 	/**
 	 * todo widgets references
@@ -90,9 +90,9 @@ public class MainPanel extends Composite {
 	@UiHandler("addButton")
 	void onAddButtonClick(ClickEvent e) {
 		// retrieve textbox text
-		String todoText = textBox.getText();
+		//String todoText = textBox.getText();
 		// send it to controller for handle business event
-		_eventBus.fireEvent(new AddTodoEvent(todoText));
+		//_eventBus.fireEvent(new AddTodoEvent(todoText));
 	}
 
 	@UiHandler("clearButton")

@@ -14,6 +14,7 @@ import com.google.gwt.user.client.ui.Image;
  */
 public class ImageButton extends Button {
 	private String text;
+	private String iconFA;
 
 	public ImageButton() {
 		super();
@@ -32,6 +33,22 @@ public class ImageButton extends Button {
 				DOM.getFirstChild(getElement()));
 	}
 
+	@SuppressWarnings("deprecation")
+	public void setIcon(String iconFA) {
+		this.iconFA= iconFA;
+		Element i = DOM.createElement("i");
+		i.setAttribute("class", iconFA+" fa-2x");
+		i.setAttribute("style","vertical-align:middle;color:green");
+
+		DOM.insertChild(getElement(),
+				(com.google.gwt.user.client.Element) i, 0);
+	}
+
+	public String getIcon() {
+		return this.text;
+	}
+
+
 	/**
 	 * text on the button
 	 */
@@ -42,14 +59,15 @@ public class ImageButton extends Button {
 		Element span = DOM.createElement("span");
 		span.setInnerText(text);
 		span.setAttribute("style", "padding-left:3px; vertical-align:middle;");
-
+		//span.setAttribute("class", iconFA);
 		DOM.insertChild(getElement(),
-				(com.google.gwt.user.client.Element) span, 0);
+				(com.google.gwt.user.client.Element) span, 1);
 	}
 
 	@Override
 	public String getText() {
 		return this.text;
 	}
+
 
 }

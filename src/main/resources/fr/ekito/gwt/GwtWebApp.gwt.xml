@@ -11,7 +11,7 @@
 		value="ENABLED" />
 	<!--<set-property name="gwt.logging.popupHandler" value="DISABLED" />-->
 
-	<inherits name="com.google.gwt.resources.Resources" />
+    <inherits name="com.bytebybyte.gwt.fontawesome.FontAwesomeLib" />
 
 	<!-- Gin -->
 	<inherits name="com.google.gwt.inject.Inject" />
