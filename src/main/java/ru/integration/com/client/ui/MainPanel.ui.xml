@@ -1,0 +1,76 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:map="urn:import:org.gwtopenmaps.openlayers.client"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:t="urn:import:ru.integration.com.client.ui"
+             xmlns:c="urn:import:ru.integration.com.client.ui.component" >
+    <!-- import for i18n messages -->
+    <ui:with type="ru.integration.com.client.resource.Messages" field="messages"/>
+    <!-- import for resources bundle -->
+    <ui:with type="ru.integration.com.client.resource.ApplicationResources"
+             field="res"/>
+
+    <g:DockLayoutPanel>
+        <!-- Top panel -->
+
+        <g:north size="250">
+            <g:HTMLPanel>
+                <h1>
+                    <g:InlineLabel text="{messages.helloMessage}"/>
+                </h1>
+                <!-- main toolbox -->
+                <g:FlowPanel styleName="{res.style.todoPanel}">
+                 <!--   <g:TextBox text="{messages.todoTitle}" ui:field="textBox"/>
+                    <c:ImageButton resource="{res.addIcon}" styleName="{res.style.sendButton}"
+                                   text="{messages.addButton}" ui:field="addButton"/>
+                    <c:ImageButton resource="{res.clearIcon}" styleName="{res.style.sendButton}"
+                                   text="{messages.clearButton}" ui:field="clearButton"/>
+                    <c:ImageButton resource="{res.loadIcon}" styleName="{res.style.sendButton}"
+                                   text="{messages.loadButton}" ui:field="loadButton"/>-->
+                    <c:ImageButton styleName="{res.style.sendButton}"
+                                   icon="fa fa-phone" text="Создать оповещение" ui:field="addButton"/>
+                    <c:ImageButton styleName="{res.style.sendButton}"
+                                   icon="fa fa-phone-square" text="Поиск в истории оповещений" ui:field="clearButton"/>
+                    <c:ImageButton styleName="{res.style.sendButton}"
+                                   icon="fa fa-search-plus" text="Поиск и редактирование абонентов" ui:field="loadButton"/>
+                    <!--<c:ImageButton styleName="{res.style.sendButton}"
+                                   icon="fa fa-search" text="Поиск абонентов" ui:field="loadButton"/>-->
+                </g:FlowPanel>
+            </g:HTMLPanel>
+        </g:north>
+        <g:center>
+            <g:TabPanel ui:field="tp" styleName="{res.style.todoPanel}">
+                <g:Tab text="Входящие звонки">
+                    <g:ScrollPanel>
+                        <g:FlowPanel ui:field="todoPanel">
+                        </g:FlowPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
+                <g:Tab text="Карта">
+                    <g:ScrollPanel>
+                        <c:MapPanel ui:field="mapPanel">
+                        </c:MapPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
+                <g:Tab text="Журнал входящих звонков">
+                    <g:ScrollPanel>
+                        <g:FlowPanel>
+                        </g:FlowPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
+                <g:Tab text="Журнал исходящих оповещений">
+                    <g:ScrollPanel>
+                        <g:FlowPanel>
+                        </g:FlowPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
+                <g:Tab text="Редактирование списка абонентов">
+                    <g:ScrollPanel>
+                        <g:FlowPanel>
+                        </g:FlowPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
+            </g:TabPanel>
+        </g:center>
+    </g:DockLayoutPanel>
+
+</ui:UiBinder> 

@@ -4,11 +4,11 @@
 
 	<!-- POM -->
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.ekito.gwt</groupId>
+	<groupId>ru.integration.com</groupId>
 	<artifactId>gwt-boot</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>Ekito Spring Boot GWT WebApp</name>
+	<name>Spring Boot GWT WebApp Demo</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -19,7 +19,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<start-class>fr.ekito.gwt.server.ServerApplication</start-class>
+		<start-class>ru.integration.com.server.ServerApplication</start-class>
 		<java.version>1.8</java.version>
         <jetty.version>9.2.17.v20160517</jetty.version>
 
@@ -60,12 +60,31 @@
 			<version>${googleGin}</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
-		<dependency>
+		<!--<dependency>
 			<groupId>com.bytebybyte.gwt</groupId>
 			<artifactId>fontawesome-lib</artifactId>
 			<version>4.6.3</version>
 			<scope>provided</scope>
+		</dependency>-->
+		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
+		<dependency>
+			<groupId>com.asayama.gwt.fa</groupId>
+			<artifactId>gwt-font-awesome</artifactId>
+			<version>0.1.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.gwtopenmaps.openlayers/gwt-openlayers-client -->
+		<dependency>
+			<groupId>org.gwtopenmaps.openlayers</groupId>
+			<artifactId>gwt-openlayers-client</artifactId>
+			<version>1.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.webjars/openlayers -->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>openlayers</artifactId>
+			<version>5.2.0</version>
+		</dependency>
+
 
 	</dependencies>
 

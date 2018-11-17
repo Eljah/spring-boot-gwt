@@ -14,7 +14,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
     </init-param>
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>fr.ekito.gwt.server.ServerApplication</param-value>
+      <param-value>ru.integration.com.server.ServerApplication</param-value>
     </init-param>
   </servlet>
   
