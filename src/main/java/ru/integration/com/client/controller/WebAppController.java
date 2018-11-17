@@ -1,7 +1,9 @@
 package ru.integration.com.client.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.http.client.Request;
@@ -46,6 +48,9 @@ public class WebAppController {
 	 * main panel UI
 	 */
 	private MainPanel _mainPanel;
+
+	public static interface TodoMapper extends ObjectMapper<ArrayList<Todo>> {}
+	TodoMapper mapper = GWT.create(TodoMapper.class );
 
 	@Inject
 	public WebAppController(SimpleEventBus eventBus, ModelHandler modelHandler, MainPanel mainPanel) {
@@ -123,7 +128,8 @@ public class WebAppController {
 					// some code to further handle the response here
 					System.out.println("text = " + text);
 					Window.alert("response = " + text);
-					List<Todo> todoList = JsonHelper.parseDataList(text);
+					//List<Todo> todoList = JsonHelper.parseDataList(text);
+					List<Todo> todoList = mapper.read(text);
 					reloadList(todoList);
 				}
 			}
