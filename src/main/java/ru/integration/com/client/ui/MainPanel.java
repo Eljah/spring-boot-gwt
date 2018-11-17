@@ -17,6 +17,7 @@ import com.google.inject.Inject;
 
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
+import ru.integration.com.client.event.AddCustomerEvent;
 import ru.integration.com.client.event.DeleteAllTodoEvent;
 import ru.integration.com.client.event.LoadEvent;
 import ru.integration.com.client.model.ModelHandler;
@@ -48,13 +49,27 @@ public class MainPanel extends Composite {
 	ImageButton addButton;
 
 	@UiField
-	Button clearButton;
+	ImageButton clearButton;
 
 	@UiField
 	ImageButton loadButton;
 
-	//@UiField
-	//TextBox textBox;
+
+	@UiField
+	ImageButton addCustomerButton;
+
+	@UiField
+	TextBox nameTextBox;
+
+	@UiField
+	TextBox addressTextBox;
+
+	@UiField
+	TextBox phoneNumberTextBox;
+
+	@UiField
+	TextBox nodeIdTextBox;
+
 
 	//@UiField
 	FlowPanel todoPanel;
@@ -99,6 +114,15 @@ public class MainPanel extends Composite {
 	 * 
 	 * @param e
 	 */
+
+	@UiHandler("addCustomerButton")
+	void onAddCustomerButtonClick(ClickEvent e) {
+		// retrieve textbox text
+		//String todoText = textBox.getText();
+		// send it to controller for handle business event
+		_eventBus.fireEvent(new AddCustomerEvent(new Customer(nameTextBox.getText(),addressTextBox.getText(),phoneNumberTextBox.getText(),nodeIdTextBox.getText())));
+	}
+
 	@UiHandler("addButton")
 	void onAddButtonClick(ClickEvent e) {
 		// retrieve textbox text

@@ -65,10 +65,20 @@
                     </g:ScrollPanel>
                 </g:Tab>
                 <g:Tab text="Редактирование списка абонентов">
-                    <g:ScrollPanel>
-                        <g:FlowPanel ui:field="customersPanel">
+                    <g:VerticalPanel styleName="{res.style.todoPanel}">
+                        <g:FlowPanel>
+                            <g:TextBox text="Новый абонент" ui:field="nameTextBox"/>
+                            <g:TextBox text="Адрес" ui:field="addressTextBox"/>
+                            <g:TextBox text="Телефон" ui:field="phoneNumberTextBox"/>
+                            <g:TextBox text="Номер узла подключения" ui:field="nodeIdTextBox"/>
+                            <c:ImageButton icon="fa fa-plus" styleName="{res.style.sendButton}" text="Добавить"
+                                           ui:field="addCustomerButton"/>
                         </g:FlowPanel>
-                    </g:ScrollPanel>
+                        <g:VerticalPanel styleName="{res.style.todoPanel}">
+                            <g:FlowPanel ui:field="customersPanel" styleName="{res.style.scrollable}">
+                            </g:FlowPanel>
+                        </g:VerticalPanel>
+                    </g:VerticalPanel>
                 </g:Tab>
             </g:TabPanel>
         </g:center>

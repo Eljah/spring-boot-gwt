@@ -12,6 +12,8 @@ public interface GwtWebAppStyles extends CssResource {
 	
 	String simpleText();
 
+	String scrollable();
+
 	String fa();
 	
 	String todoblock();

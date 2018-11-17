@@ -14,14 +14,7 @@ import com.google.gwt.http.client.Response;
 import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
-import ru.integration.com.client.event.AddTodoEvent;
-import ru.integration.com.client.event.AddTodoEventHandler;
-import ru.integration.com.client.event.DeleteAllTodoEvent;
-import ru.integration.com.client.event.DeleteAllTodoEventHandler;
-import ru.integration.com.client.event.DeleteTodoEvent;
-import ru.integration.com.client.event.DeleteTodoEventHandler;
-import ru.integration.com.client.event.LoadEvent;
-import ru.integration.com.client.event.LoadEventHandler;
+import ru.integration.com.client.event.*;
 import ru.integration.com.client.model.ModelHandler;
 import ru.integration.com.client.ui.MainPanel;
 import ru.integration.com.common.model.Customer;
@@ -30,202 +23,215 @@ import ru.integration.com.common.model.Todo;
 /**
  * Web App Controller Manage all business events and communicate with server
  * services
- * 
  */
 public class WebAppController {
 
-	/**
-	 * Event Bus
-	 */
-	private SimpleEventBus _eventBus;
+    /**
+     * Event Bus
+     */
+    private SimpleEventBus _eventBus;
 
-	/**
-	 * Model Handler
-	 */
-	private ModelHandler _modelHandler;
+    /**
+     * Model Handler
+     */
+    private ModelHandler _modelHandler;
 
-	/**
-	 * main panel UI
-	 */
-	private MainPanel _mainPanel;
+    /**
+     * main panel UI
+     */
+    private MainPanel _mainPanel;
 
-	public static interface TodoMapper extends ObjectMapper<ArrayList<Todo>> {}
-	TodoMapper mapper = GWT.create(TodoMapper.class );
+    public static interface TodoMapper extends ObjectMapper<ArrayList<Todo>> {
+    }
 
-	public static interface CustomerMapper extends ObjectMapper<ArrayList<Customer>> {}
-	CustomerMapper mapperCustomer = GWT.create(CustomerMapper.class );
+    TodoMapper mapper = GWT.create(TodoMapper.class);
+
+    public static interface CustomerMapper extends ObjectMapper<ArrayList<Customer>> {
+    }
+
+    CustomerMapper mapperCustomer = GWT.create(CustomerMapper.class);
 
 
-	@Inject
-	public WebAppController(SimpleEventBus eventBus, ModelHandler modelHandler, MainPanel mainPanel) {
+    @Inject
+    public WebAppController(SimpleEventBus eventBus, ModelHandler modelHandler, MainPanel mainPanel) {
 
-		_eventBus = eventBus;
-		_modelHandler = modelHandler;
-		_mainPanel = mainPanel;
-	}
+        _eventBus = eventBus;
+        _modelHandler = modelHandler;
+        _mainPanel = mainPanel;
+    }
 
-	/**
-	 * Bind all events handler
-	 */
-	public void bindHandlers() {
+    /**
+     * Bind all events handler
+     */
+    public void bindHandlers() {
 
-		_eventBus.addHandler(AddTodoEvent.TYPE, new AddTodoEventHandler() {
+        _eventBus.addHandler(AddTodoEvent.TYPE, new AddTodoEventHandler() {
 
-			@Override
-			public void onAddTodoEventHandler(AddTodoEvent event) {
-				addTodo(event.getTodoTitle());
-			}
-		});
+            @Override
+            public void onAddTodoEventHandler(AddTodoEvent event) {
+                addTodo(event.getTodoTitle());
+            }
+        });
 
-		_eventBus.addHandler(DeleteTodoEvent.TYPE, new DeleteTodoEventHandler() {
+        _eventBus.addHandler(DeleteTodoEvent.TYPE, new DeleteTodoEventHandler() {
 
-			@Override
-			public void onDeleteTodoEventHandler(DeleteTodoEvent event) {
-				deleteTodo(event.getTodo());
-			}
-		});
+            @Override
+            public void onDeleteTodoEventHandler(DeleteTodoEvent event) {
+                deleteTodo(event.getTodo());
+            }
+        });
 
-		_eventBus.addHandler(DeleteAllTodoEvent.TYPE, new DeleteAllTodoEventHandler() {
+        _eventBus.addHandler(DeleteAllTodoEvent.TYPE, new DeleteAllTodoEventHandler() {
 
-			@Override
-			public void onDeleteAllTodoEventHandler(DeleteAllTodoEvent event) {
-				deleteAll();
-			}
-		});
+            @Override
+            public void onDeleteAllTodoEventHandler(DeleteAllTodoEvent event) {
+                deleteAll();
+            }
+        });
 
-		_eventBus.addHandler(LoadEvent.TYPE, new LoadEventHandler() {
+        _eventBus.addHandler(LoadEvent.TYPE, new LoadEventHandler() {
 
-			@Override
-			public void onLoadEventHandler(LoadEvent event)
-			//{				loadTodoList();			}
-			{				loadCustomersList();			}
+            @Override
+            public void onLoadEventHandler(LoadEvent event)
+            //{				loadTodoList();			}
+            {
+                loadCustomersList();
+            }
 
-		});
-	}
-	/**
-	 * get todo list from model and reload UI
-	 * 
-	 * @param list
-	 */
-	protected void reloadList(List<Todo> list) {
-		_modelHandler.reloadAll(list);
-		_mainPanel.reloadTodoList();
-	}
+        });
 
-	/**
-	 * ask server for stored Todo list
-	 */
-	protected void loadTodoList() {
-		String pageBaseUrl = GWT.getHostPageBaseURL();
-		// String baseUrl = GWT.getModuleBaseURL();
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/rest/todos/");
-		rb.setCallback(new RequestCallback() {
+        _eventBus.addHandler(AddCustomerEvent.TYPE, new AddCustomerEventHandler() {
+            @Override
+            public void onAddCustomerEventHandler(AddCustomerEvent event) {
+                addCustomer(event.getCustomer());
+            }
+        });
+    }
 
-			public void onError(Request request, Throwable e) {
-				// some error handling code here
-				Window.alert("error = " + e.getMessage());
-			}
+    /**
+     * get todo list from model and reload UI
+     *
+     * @param list
+     */
+    protected void reloadList(List<Todo> list) {
+        _modelHandler.reloadAll(list);
+        _mainPanel.reloadTodoList();
+    }
 
-			public void onResponseReceived(Request request, Response response) {
-				if (200 == response.getStatusCode()) {
-					String text = response.getText();
-					// some code to further handle the response here
-					System.out.println("text = " + text);
-					Window.alert("response = " + text);
-					//List<Todo> todoList = JsonHelper.parseDataList(text);
-					List<Todo> todoList = mapper.read(text);
-					reloadList(todoList);
-				}
-			}
-		});
-		try {
-			rb.send();
-		} catch (RequestException e) {
-			e.printStackTrace();
-			Window.alert("error = " + e.getMessage());
-		}
-	}
+    /**
+     * ask server for stored Todo list
+     */
+    protected void loadTodoList() {
+        String pageBaseUrl = GWT.getHostPageBaseURL();
+        // String baseUrl = GWT.getModuleBaseURL();
+        RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/rest/todos/");
+        rb.setCallback(new RequestCallback() {
 
-	/**
-	 * delete all todo from model and UI
-	 */
-	protected void deleteAll() {
-		_modelHandler.removeAll();
-		_mainPanel.removeAllTodo();
-	}
+            public void onError(Request request, Throwable e) {
+                // some error handling code here
+                Window.alert("error = " + e.getMessage());
+            }
 
-	/**
-	 * delete a todo (ui & model) from given id
-	 * 
-	 * @param todoId
-	 */
-	protected void deleteTodo(Todo todo) {
-		_modelHandler.remove(todo);
-		_mainPanel.removeTodoFromPanel(todo);
-	}
+            public void onResponseReceived(Request request, Response response) {
+                if (200 == response.getStatusCode()) {
+                    String text = response.getText();
+                    // some code to further handle the response here
+                    System.out.println("text = " + text);
+                    Window.alert("response = " + text);
+                    //List<Todo> todoList = JsonHelper.parseDataList(text);
+                    List<Todo> todoList = mapper.read(text);
+                    reloadList(todoList);
+                }
+            }
+        });
+        try {
+            rb.send();
+        } catch (RequestException e) {
+            e.printStackTrace();
+            Window.alert("error = " + e.getMessage());
+        }
+    }
 
-	/**
-	 * create and addCustomer a todo with given label
-	 * 
-	 * @param todoTitle
-	 */
-	protected void addTodo(String todoTitle) {
-		Todo t = new Todo(todoTitle);
-		_modelHandler.add(t);
-		_mainPanel.addTodoToPanel(t);
-	}
+    /**
+     * delete all todo from model and UI
+     */
+    protected void deleteAll() {
+        _modelHandler.removeAll();
+        _mainPanel.removeAllTodo();
+    }
 
-	/**
-	 * delete a todo (ui & model) from given id
-	 *
-	 * @param todoId
-	 */
-	protected void deleteCustomer(Customer todo) {
-		_modelHandler.removeCustomer(todo);
-		_mainPanel.removeCustomerFromPanel(todo);
-	}
+    /**
+     * delete a todo (ui & model) from given id
+     *
+     * @param todoId
+     */
+    protected void deleteTodo(Todo todo) {
+        _modelHandler.remove(todo);
+        _mainPanel.removeTodoFromPanel(todo);
+    }
 
-	protected void addCustomer(String customerName, String customerLocation, String customerPhone, String nodeId) {
-		Customer t=new Customer(customerName, customerLocation, nodeId, customerPhone);
-		_modelHandler.addCustomer(t);
-		_mainPanel.addCustomerToPanel(t);
-	}
+    /**
+     * create and addCustomer a todo with given label
+     *
+     * @param todoTitle
+     */
+    protected void addTodo(String todoTitle) {
+        Todo t = new Todo(todoTitle);
+        _modelHandler.add(t);
+        _mainPanel.addTodoToPanel(t);
+    }
 
-	protected void reloadCustomerList(List<Customer> list) {
-		_modelHandler.reloadAllCustomers(list);
-		_mainPanel.reloadCustomerList();
-	}
+    /**
+     * delete a todo (ui & model) from given id
+     *
+     * @param todoId
+     */
+    protected void deleteCustomer(Customer todo) {
+        _modelHandler.removeCustomer(todo);
+        _mainPanel.removeCustomerFromPanel(todo);
+    }
 
-	protected void loadCustomersList() {
-		String pageBaseUrl = GWT.getHostPageBaseURL();
-		// String baseUrl = GWT.getModuleBaseURL();
-		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/rest/customers/");
-		rb.setCallback(new RequestCallback() {
+    protected void addCustomer(Customer t) {
+        _modelHandler.addCustomer(t);
+        _mainPanel.addCustomerToPanel(t);
+        //Window.alert("response = " + t.toString());
+    }
 
-			public void onError(Request request, Throwable e) {
-				// some error handling code here
-				Window.alert("error = " + e.getMessage());
-			}
+    protected void reloadCustomerList(List<Customer> list) {
+        _modelHandler.reloadAllCustomers(list);
+        _mainPanel.reloadCustomerList();
+    }
 
-			public void onResponseReceived(Request request, Response response) {
-				if (200 == response.getStatusCode()) {
-					String text = response.getText();
-					// some code to further handle the response here
-					System.out.println("text = " + text);
-					Window.alert("response = " + text);
-					//List<Todo> todoList = JsonHelper.parseDataList(text);
-					List<Customer> customersList = mapperCustomer.read(text);
-					reloadCustomerList(customersList);
-				}
-			}
-		});
-		try {
-			rb.send();
-		} catch (RequestException e) {
-			e.printStackTrace();
-			Window.alert("error = " + e.getMessage());
-		}
-	}
+    protected void loadCustomersList() {
+        String pageBaseUrl = GWT.getHostPageBaseURL();
+        // String baseUrl = GWT.getModuleBaseURL();
+        RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/rest/customers/");
+        rb.setCallback(new RequestCallback() {
+
+            public void onError(Request request, Throwable e) {
+                // some error handling code here
+                Window.alert("error = " + e.getMessage());
+            }
+
+            public void onResponseReceived(Request request, Response response) {
+                if (200 == response.getStatusCode()) {
+                    String text = response.getText();
+                    // some code to further handle the response here
+                    System.out.println("text = " + text);
+                    //Window.alert("response = " + text);
+                    //List<Todo> todoList = JsonHelper.parseDataList(text);
+                    List<Customer> customersList = mapperCustomer.read(text);
+                    reloadCustomerList(customersList);
+                }
+            }
+        });
+        try {
+            rb.send();
+        } catch (RequestException e) {
+            e.printStackTrace();
+            Window.alert("error = " + e.getMessage());
+        }
+    }
 
 
 }
