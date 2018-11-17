@@ -22,7 +22,9 @@ import ru.integration.com.client.event.LoadEvent;
 import ru.integration.com.client.model.ModelHandler;
 import ru.integration.com.client.ui.component.ImageButton;
 import ru.integration.com.client.ui.component.MapPanel;
+import ru.integration.com.client.ui.schedule.ReloadCustomerListCommand;
 import ru.integration.com.client.ui.schedule.ReloadTodoListCommand;
+import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Todo;
 
 /**
@@ -54,11 +56,14 @@ public class MainPanel extends Composite {
 	//@UiField
 	//TextBox textBox;
 
-	@UiField
+	//@UiField
 	FlowPanel todoPanel;
 
 	@UiField
 	TabPanel tp = new TabPanel();
+
+	@UiField
+	FlowPanel customersPanel;
 
 	@UiField
 	MapPanel mapPanel;
@@ -66,6 +71,8 @@ public class MainPanel extends Composite {
 	 * todo widgets references
 	 */
 	Map<String, TodoWidget> _todoWidgets;
+
+	Map<String, CustomerWidget> _customersWidgets;
 
 	/**
 	 * event bus
@@ -83,6 +90,7 @@ public class MainPanel extends Composite {
 		// init display
 		initWidget(uiBinder.createAndBindUi(this));
 		_todoWidgets = new HashMap<>();
+		_customersWidgets = new HashMap<>();
 		_modelHandler = modelHandler;
 	}
 
@@ -111,11 +119,59 @@ public class MainPanel extends Composite {
 		_eventBus.fireEvent(new LoadEvent());
 	}
 
+	public void addCustomerToPanel(Customer t) {
+		if (_customersWidgets.get(t.getName()) == null) {
+			// create a Todo
+			CustomerWidget w = new CustomerWidget(t, _eventBus);
+			// addCustomer it to panel
+			customersPanel.add(w);
+			// keep a reference of the widget for later usage (see
+			// removeTodoFromPanel)
+			_customersWidgets.put(t.getName(), w);
+		}
+		else{
+			// some error handling code here
+			Window.alert("К этому узлу уже присоединены, выберите другой узел для "+t.getName());
+		}
+	}
+
+
+	public void removeCustomerFromPanel(Customer t) {
+		// retrieve from the references
+		CustomerWidget customerWidget = _customersWidgets.get(t.getName());
+		// remove it from panel
+		customersPanel.remove(customerWidget);
+
+		_customersWidgets.remove(t.getName());
+	}
+
+	public void removeAllCustomers() {
+		// clear todo panel
+		customersPanel.clear();
+		// clear references
+		_customersWidgets.clear();
+	}
+
+	public void reloadCustomerList() {
+		// clear all todo
+		//removeAllCustomers();
+		// retrieve new model
+		List<Customer> all2 = _modelHandler.getAllCustomers();
+		// usae defered command for incremental UI refresh
+		if (all2.size() > 0) {
+			// create the command
+			ReloadCustomerListCommand reloadCustomerListCommand = new ReloadCustomerListCommand(all2, this);
+			// schedule the command call
+			Scheduler.get().scheduleDeferred(reloadCustomerListCommand);
+		}
+	}
+
+
 	public void addTodoToPanel(Todo t) {
 		if (_todoWidgets.get(t.getTitle()) == null) {
 			// create a Todo
 			TodoWidget w = new TodoWidget(t, _eventBus);
-			// add it to panel
+			// addCustomer it to panel
 			todoPanel.add(w);
 			// keep a reference of the widget for later usage (see
 			// removeTodoFromPanel)

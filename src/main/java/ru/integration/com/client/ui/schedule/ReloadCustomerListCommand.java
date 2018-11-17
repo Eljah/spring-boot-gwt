@@ -1,12 +1,12 @@
 package ru.integration.com.client.ui.schedule;
 
-import java.util.List;
-
 import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.core.client.Scheduler.ScheduledCommand;
-
 import ru.integration.com.client.ui.MainPanel;
+import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Todo;
+
+import java.util.List;
 
 /**
  * Deferred command to do incremental UI refresh 
@@ -15,16 +15,16 @@ import ru.integration.com.common.model.Todo;
  * @author AGI
  *
  */
-public class ReloadTodoListCommand implements ScheduledCommand{
+public class ReloadCustomerListCommand implements ScheduledCommand{
 
-	private List<Todo> _todoList;
-	
+	private List<Customer> _customerList;
+
 	private MainPanel _mainPanel;
-	
+
 	private int _index;
 
-	public ReloadTodoListCommand(List<Todo> list, MainPanel mainPanel){
-		_todoList = list;
+	public ReloadCustomerListCommand(List<Customer> list, MainPanel mainPanel){
+		_customerList = list;
 		_mainPanel = mainPanel;
 		_index = 0;
 	}
@@ -35,9 +35,9 @@ public class ReloadTodoListCommand implements ScheduledCommand{
 	 */
 	@Override
 	public void execute() {
-		if (_index < _todoList.size()){
-			Todo todo = _todoList.get(_index);
-			_mainPanel.addTodoToPanel(todo);
+		if (_index < _customerList.size()){
+			Customer customer = _customerList.get(_index);
+			_mainPanel.addCustomerToPanel(customer);
 			// schedule for next iteration
 			Scheduler.get().scheduleDeferred(this);
 			_index++;

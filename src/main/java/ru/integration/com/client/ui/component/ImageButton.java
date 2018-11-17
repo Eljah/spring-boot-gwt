@@ -7,7 +7,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Image;
 
 /**
- * Custom component to extend simple button and add 
+ * Custom component to extend simple button and addCustomer
  * resource image integration
  * @author AGI
  *

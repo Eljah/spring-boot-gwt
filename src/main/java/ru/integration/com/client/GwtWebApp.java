@@ -32,7 +32,7 @@ public class GwtWebApp implements EntryPoint {
 		controller.bindHandlers();
 		// get main panel
 		MainPanel mainPanel = injector.getMainPanel();
-		// add for display
+		// addCustomer for display
 		RootLayoutPanel.get().add(mainPanel);
 	}
 }

@@ -1,6 +1,6 @@
 package ru.integration.com.server.web;
 
-import ru.integration.com.common.model.Todo;
+import ru.integration.com.common.model.Customer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -21,18 +21,19 @@ public class CustomerController {
 
     final static Logger logger = LoggerFactory.getLogger(TodoController.class);
 
-    List<Todo> todoList = new ArrayList<>();
+    List<Customer> customerList = new ArrayList<>();
 
     public CustomerController(){
-        todoList.add(new Todo("Todo #1"));
-        todoList.add(new Todo("Todo #2"));
-        todoList.add(new Todo("Todo #3"));
+        customerList.add(new Customer("ТСЖ Белая лебеда","Роторная, 1", "245", "79047640086"));
+        customerList.add(new Customer("ТСЖ Прокрастинация","Роторная, 2", "247", "79047640087"));
+        customerList.add(new Customer("ТСЖ Pathetic Brilliant Lifestyle","Роторная, 3", "248", "79047640088"));
+        customerList.add(new Customer("ТСЖ Ярканат","Роторная, 4", "249l", "79047640089"));
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<Todo> all() {
-        return todoList;
+    public List<Customer> all() {
+        return customerList;
     }
 }
 

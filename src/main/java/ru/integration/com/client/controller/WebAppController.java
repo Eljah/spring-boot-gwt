@@ -22,9 +22,9 @@ import ru.integration.com.client.event.DeleteTodoEvent;
 import ru.integration.com.client.event.DeleteTodoEventHandler;
 import ru.integration.com.client.event.LoadEvent;
 import ru.integration.com.client.event.LoadEventHandler;
-import ru.integration.com.client.json.JsonHelper;
 import ru.integration.com.client.model.ModelHandler;
 import ru.integration.com.client.ui.MainPanel;
+import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Todo;
 
 /**
@@ -51,6 +51,10 @@ public class WebAppController {
 
 	public static interface TodoMapper extends ObjectMapper<ArrayList<Todo>> {}
 	TodoMapper mapper = GWT.create(TodoMapper.class );
+
+	public static interface CustomerMapper extends ObjectMapper<ArrayList<Customer>> {}
+	CustomerMapper mapperCustomer = GWT.create(CustomerMapper.class );
+
 
 	@Inject
 	public WebAppController(SimpleEventBus eventBus, ModelHandler modelHandler, MainPanel mainPanel) {
@@ -92,9 +96,9 @@ public class WebAppController {
 		_eventBus.addHandler(LoadEvent.TYPE, new LoadEventHandler() {
 
 			@Override
-			public void onLoadEventHandler(LoadEvent event) {
-				loadTodoList();
-			}
+			public void onLoadEventHandler(LoadEvent event)
+			//{				loadTodoList();			}
+			{				loadCustomersList();			}
 
 		});
 	}
@@ -161,7 +165,7 @@ public class WebAppController {
 	}
 
 	/**
-	 * create and add a todo with given label
+	 * create and addCustomer a todo with given label
 	 * 
 	 * @param todoTitle
 	 */
@@ -170,4 +174,58 @@ public class WebAppController {
 		_modelHandler.add(t);
 		_mainPanel.addTodoToPanel(t);
 	}
+
+	/**
+	 * delete a todo (ui & model) from given id
+	 *
+	 * @param todoId
+	 */
+	protected void deleteCustomer(Customer todo) {
+		_modelHandler.removeCustomer(todo);
+		_mainPanel.removeCustomerFromPanel(todo);
+	}
+
+	protected void addCustomer(String customerName, String customerLocation, String customerPhone, String nodeId) {
+		Customer t=new Customer(customerName, customerLocation, nodeId, customerPhone);
+		_modelHandler.addCustomer(t);
+		_mainPanel.addCustomerToPanel(t);
+	}
+
+	protected void reloadCustomerList(List<Customer> list) {
+		_modelHandler.reloadAllCustomers(list);
+		_mainPanel.reloadCustomerList();
+	}
+
+	protected void loadCustomersList() {
+		String pageBaseUrl = GWT.getHostPageBaseURL();
+		// String baseUrl = GWT.getModuleBaseURL();
+		RequestBuilder rb = new RequestBuilder(RequestBuilder.GET, pageBaseUrl + "/rest/customers/");
+		rb.setCallback(new RequestCallback() {
+
+			public void onError(Request request, Throwable e) {
+				// some error handling code here
+				Window.alert("error = " + e.getMessage());
+			}
+
+			public void onResponseReceived(Request request, Response response) {
+				if (200 == response.getStatusCode()) {
+					String text = response.getText();
+					// some code to further handle the response here
+					System.out.println("text = " + text);
+					Window.alert("response = " + text);
+					//List<Todo> todoList = JsonHelper.parseDataList(text);
+					List<Customer> customersList = mapperCustomer.read(text);
+					reloadCustomerList(customersList);
+				}
+			}
+		});
+		try {
+			rb.send();
+		} catch (RequestException e) {
+			e.printStackTrace();
+			Window.alert("error = " + e.getMessage());
+		}
+	}
+
+
 }
