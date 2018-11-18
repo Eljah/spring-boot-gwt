@@ -106,6 +106,27 @@ public class WebAppController {
                 addCustomer(event.getCustomer());
             }
         });
+
+        _eventBus.addHandler(DeleteCustomerEvent.TYPE, new DeleteCustomerEventHandler() {
+            @Override
+            public void onDeleteCustomerEventHandler(DeleteCustomerEvent event) {
+                deleteCustomer(event.getCustomer());
+            }
+        });
+
+        _eventBus.addHandler(EditCustomerEvent.TYPE, new EditCustomerEventHandler() {
+            @Override
+            public void onEditCustomerEventHandler(EditCustomerEvent event) {
+                editCustomer(event.getCustomer());
+            }
+        });
+
+        _eventBus.addHandler(SaveCustomerEvent.TYPE, new SaveCustomerEventHandler() {
+            @Override
+            public void onSaveCustomerEventHandler(SaveCustomerEvent event) {
+                saveCustomer(event.getCustomer());
+            }
+        });
     }
 
     /**
@@ -189,6 +210,18 @@ public class WebAppController {
     protected void deleteCustomer(Customer todo) {
         _modelHandler.removeCustomer(todo);
         _mainPanel.removeCustomerFromPanel(todo);
+    }
+
+    protected void editCustomer(Customer t) {
+        _mainPanel.editCustomer(t);
+        //_modelHandler.removeCustomer(todo);
+        //_mainPanel.removeCustomerFromPanel(todo);
+    }
+
+    protected void saveCustomer(Customer t) {
+        _mainPanel.saveCustomer(t);
+        //_modelHandler.removeCustomer(todo);
+        //_mainPanel.removeCustomerFromPanel(todo);
     }
 
     protected void addCustomer(Customer t) {

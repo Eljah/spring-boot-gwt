@@ -39,7 +39,6 @@ public class ImageButton extends Button {
 		Element i = DOM.createElement("i");
 		i.setAttribute("class", iconFA+" fa-2x");
 		i.setAttribute("style","vertical-align:middle;color:green");
-
 		DOM.insertChild(getElement(),
 				(com.google.gwt.user.client.Element) i, 0);
 	}

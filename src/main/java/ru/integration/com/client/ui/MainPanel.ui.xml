@@ -23,13 +23,13 @@
                        <c:ImageButton resource="{res.addIcon}" styleName="{res.style.sendButton}"
                                       text="{messages.addButton}" ui:field="addButton"/>
                        <c:ImageButton resource="{res.clearIcon}" styleName="{res.style.sendButton}"
-                                      text="{messages.clearButton}" ui:field="clearButton"/>
+                                      text="{messages.historyButton}" ui:field="historyButton"/>
                        <c:ImageButton resource="{res.loadIcon}" styleName="{res.style.sendButton}"
                                       text="{messages.loadButton}" ui:field="loadButton"/>-->
                     <c:ImageButton styleName="{res.style.sendButton}"
                                    icon="fa fa-phone" text="Создать оповещение" ui:field="addButton"/>
                     <c:ImageButton styleName="{res.style.sendButton}"
-                                   icon="fa fa-phone-square" text="Поиск в истории оповещений" ui:field="clearButton"/>
+                                   icon="fa fa-phone-square" text="Поиск в истории оповещений" ui:field="historyButton"/>
                     <c:ImageButton styleName="{res.style.sendButton}"
                                    icon="fa fa-search-plus" text="Поиск и редактирование абонентов"
                                    ui:field="loadButton"/>
@@ -73,6 +73,8 @@
                             <g:TextBox text="Номер узла подключения" ui:field="nodeIdTextBox"/>
                             <c:ImageButton icon="fa fa-plus" styleName="{res.style.sendButton}" text="Добавить"
                                            ui:field="addCustomerButton"/>
+                            <c:ImageButton icon="fa fa-floppy-o" styleName="{res.style.sendButton}" text="Сохранить"
+                                           ui:field="saveCustomerButton"/>
                         </g:FlowPanel>
                         <g:VerticalPanel styleName="{res.style.todoPanel}">
                             <g:FlowPanel ui:field="customersPanel" styleName="{res.style.scrollable}">

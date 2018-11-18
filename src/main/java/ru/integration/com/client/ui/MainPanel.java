@@ -15,11 +15,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 
-import org.gwtopenmaps.openlayers.client.MapOptions;
-import org.gwtopenmaps.openlayers.client.MapWidget;
-import ru.integration.com.client.event.AddCustomerEvent;
-import ru.integration.com.client.event.DeleteAllTodoEvent;
-import ru.integration.com.client.event.LoadEvent;
+import ru.integration.com.client.event.*;
 import ru.integration.com.client.model.ModelHandler;
 import ru.integration.com.client.ui.component.ImageButton;
 import ru.integration.com.client.ui.component.MapPanel;
@@ -49,7 +45,7 @@ public class MainPanel extends Composite {
 	ImageButton addButton;
 
 	@UiField
-	ImageButton clearButton;
+	ImageButton historyButton;
 
 	@UiField
 	ImageButton loadButton;
@@ -57,6 +53,9 @@ public class MainPanel extends Composite {
 
 	@UiField
 	ImageButton addCustomerButton;
+
+	@UiField
+	ImageButton saveCustomerButton;
 
 	@UiField
 	TextBox nameTextBox;
@@ -107,6 +106,7 @@ public class MainPanel extends Composite {
 		_todoWidgets = new HashMap<>();
 		_customersWidgets = new HashMap<>();
 		_modelHandler = modelHandler;
+		saveCustomerButton.setVisible(false);
 	}
 
 	/**
@@ -120,26 +120,38 @@ public class MainPanel extends Composite {
 		// retrieve textbox text
 		//String todoText = textBox.getText();
 		// send it to controller for handle business event
-		_eventBus.fireEvent(new AddCustomerEvent(new Customer(nameTextBox.getText(),addressTextBox.getText(),phoneNumberTextBox.getText(),nodeIdTextBox.getText())));
+		_eventBus.fireEvent(new AddCustomerEvent(new Customer(nameTextBox.getText(),addressTextBox.getText(),nodeIdTextBox.getText(),phoneNumberTextBox.getText())));
 	}
+
+	@UiHandler("saveCustomerButton")
+	void onEditdCustomerButtonClick(ClickEvent e) {
+		// retrieve textbox text
+		//String todoText = textBox.getText();
+		// send it to controller for handle business event
+		_eventBus.fireEvent(new SaveCustomerEvent(new Customer(nameTextBox.getText(),addressTextBox.getText(),nodeIdTextBox.getText(),phoneNumberTextBox.getText())));
+	}
+
 
 	@UiHandler("addButton")
 	void onAddButtonClick(ClickEvent e) {
+		tp.selectTab(0);
 		// retrieve textbox text
 		//String todoText = textBox.getText();
 		// send it to controller for handle business event
 		//_eventBus.fireEvent(new AddTodoEvent(todoText));
 	}
 
-	@UiHandler("clearButton")
+	@UiHandler("historyButton")
 	void onClearButtonClick(ClickEvent e) {
 		// ask controller for delete all event
+		tp.selectTab(2);
 		_eventBus.fireEvent(new DeleteAllTodoEvent());
 	}
 
 	@UiHandler("loadButton")
 	void onLoadButtonClick(ClickEvent e) {
 		// ask controller for load event
+		tp.selectTab(4); //todo comstamt
 		_eventBus.fireEvent(new LoadEvent());
 	}
 
@@ -168,6 +180,28 @@ public class MainPanel extends Composite {
 
 		_customersWidgets.remove(t.getName());
 	}
+
+	public void editCustomer(Customer t) {
+		nameTextBox.setText(t.getName());
+		addressTextBox.setText(t.getLocation());
+		phoneNumberTextBox.setText(t.getPhoneNumber());
+		nodeIdTextBox.setText(t.getNodeId());
+
+		addCustomerButton.setVisible(false);
+		saveCustomerButton.setVisible(true);
+	}
+
+
+	public void saveCustomer(Customer t) {
+	    addCustomerButton.setVisible(true);
+		saveCustomerButton.setVisible(false);
+		CustomerWidget customerWidget=_customersWidgets.get(t.getName());
+		customerWidget.nameBox.setText(t.getName());
+		customerWidget.locationBox.setText(t.getLocation());
+		customerWidget.phoneNumberBox.setText(t.getPhoneNumber());
+		customerWidget.nodeId.setText(t.getNodeId());
+	}
+
 
 	public void removeAllCustomers() {
 		// clear todo panel
