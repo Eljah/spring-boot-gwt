@@ -12,9 +12,9 @@
     <g:DockLayoutPanel>
         <!-- Top panel -->
 
-        <g:north size="250">
+        <g:north size="100">
             <g:HTMLPanel>
-                <h1>
+                <h1 class="h1">
                     <g:InlineLabel text="{messages.helloMessage}"/>
                 </h1>
                 <!-- main toolbox -->

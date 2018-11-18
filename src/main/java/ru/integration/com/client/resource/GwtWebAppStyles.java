@@ -16,6 +16,8 @@ public interface GwtWebAppStyles extends CssResource {
 
 	String fa();
 
+	String h1();
+
 	String gwtTextArea();
 	
 	String todoblock();

@@ -8,6 +8,12 @@
 .gwtTextArea {
 }
 
+.h1 {
+   height: 50px;
+   margin-top: 10px;
+   margin-bottom: 10px;
+}
+
 .fa {
 	font-size: 5em;
 	font-color: green;
@@ -35,11 +41,11 @@
 .todoPanel {
 	position: relative;
 	float: center;
-	margin: 20px;
+	margin: 10px;
 	border-radius: 10px;
 	background: none repeat scroll 0 0 #E5ECF9;
 	margin-left: auto;
-	padding: 20px;
+	padding: 10px;
 	margin-right: auto;
 	width: 90%;
 }

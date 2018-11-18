@@ -5,15 +5,26 @@ import org.gwtopenmaps.openlayers.client.LonLat;
 import org.gwtopenmaps.openlayers.client.MapOptions;
 import org.gwtopenmaps.openlayers.client.MapWidget;
 import org.gwtopenmaps.openlayers.client.layer.OSM;
+import ru.integration.com.client.ui.MainPanel;
 
 /**
  * Created by eljah32 on 11/17/2018.
  */
 public class MapPanel extends FlowPanel {
-    MapPanel()
+    String height;
+    String width;
+
+    MapPanel(){
+        this("100%","100%");
+    }
+
+
+    MapPanel(String height, String width)
     {
+        this.height=height;
+        this.width=width;
         MapOptions defaultMapOptions = new MapOptions();
-        MapWidget mapWidget = new MapWidget("500px", "500px", defaultMapOptions);
+        MapWidget mapWidget = new MapWidget(width+"", height+"", defaultMapOptions);
         OSM osmMapnik = OSM.Mapnik("Mapnik");
         OSM osmCycle = OSM.CycleMap("CycleMap");
 
