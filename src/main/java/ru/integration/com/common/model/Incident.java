@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Incident {
     String description;
+    String phoneNumber;
     Date incedentStart;
     Date conversationEnd;
     List<Long> nodesAffected;
@@ -23,6 +24,14 @@ public class Incident {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public Date getIncedentStart() {

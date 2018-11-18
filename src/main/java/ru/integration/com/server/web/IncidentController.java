@@ -3,10 +3,7 @@ package ru.integration.com.server.web;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Incident;
 
@@ -23,7 +20,7 @@ public class IncidentController {
 
     final static Logger logger = LoggerFactory.getLogger(TodoController.class);
 
-    static boolean requested=false;
+    Incident current=null;
 
     public IncidentController() {
     }
@@ -33,21 +30,26 @@ public class IncidentController {
     public Incident current() {
         try {
             Thread.sleep(1000);
-        }
-        catch (InterruptedException e)
-        {
+        } catch (InterruptedException e) {
 
         }
 
-        if (!requested) {
-            Incident toBeReturne = new Incident();
-            toBeReturne.setIncedentStart(new Date());
-            requested=true;
+        if (current!=null) {
+            Incident toBeReturne = current;
+            current=null;
             return toBeReturne;
 
         } else {
             return null;
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, path = "/new/{number}")
+    @ResponseStatus(HttpStatus.OK)
+    public void setNewIncident(@PathVariable String number) {
+        current=new Incident();
+        current.setIncedentStart(new Date());
+        current.setPhoneNumber(number);
     }
 }
 
