@@ -69,7 +69,7 @@ public class IncidentController {
         _incidentWidget=new IncidentWidget(incident,_eventBus);
         _mainPanel.newIncident(_incidentWidget);
         _incidentWidget.setUpStartDate();
-
+        _incidentWidget.setIncidentPhoneNumber();
     }
 
 };

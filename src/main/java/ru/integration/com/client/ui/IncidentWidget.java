@@ -47,4 +47,12 @@ public class IncidentWidget extends Composite {
         incidentStartedTime.setText(currentIncident.getIncedentStart().toLocaleString());
     }
 
+    @UiField
+    InlineLabel incidentPhoneNumber;
+
+    public void setIncidentPhoneNumber()
+    {
+        incidentPhoneNumber.setText(currentIncident.getPhoneNumber());
+    }
+
 }
