@@ -4,10 +4,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.InlineLabel;
-import com.google.gwt.user.client.ui.Widget;
+import com.google.gwt.user.client.ui.*;
 import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Incident;
 
@@ -54,5 +51,10 @@ public class IncidentWidget extends Composite {
     {
         incidentPhoneNumber.setText(currentIncident.getPhoneNumber());
     }
+
+    @UiField
+    TextArea descriptionText;
+
+
 
 }

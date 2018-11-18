@@ -19,6 +19,12 @@
                 <g:InlineLabel styleName="{res.style.todoText}" text="Телефонный номер, с которого поступила заявка:"/>
                 <g:InlineLabel styleName="{res.style.todoText}" ui:field="incidentPhoneNumber"/>
             </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Детальное описание проблемы:"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:TextArea styleName="{res.style.gwtTextArea}" characterWidth="100" visibleLines="10" ui:field="descriptionText"/>
+            </g:FlowPanel>
         </g:VerticalPanel>
         <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="locationBox"/>-->
         <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="phoneNumberBox"/>-->
