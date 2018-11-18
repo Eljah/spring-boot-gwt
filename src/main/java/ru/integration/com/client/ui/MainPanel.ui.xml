@@ -49,7 +49,7 @@
                 </g:Tab>
                 <g:Tab text="Карта">
                     <g:ScrollPanel>
-                        <c:MapPanel ui:field="mapPanel">
+                        <c:MapPanel ui:field="mapPanel" width="800px" height="600px">
                         </c:MapPanel>
                     </g:ScrollPanel>
                 </g:Tab>
