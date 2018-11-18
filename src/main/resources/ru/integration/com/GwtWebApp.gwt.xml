@@ -21,12 +21,12 @@
 	<inherits name="com.google.gwt.inject.Inject" />
 
 	<!-- French language, independent of country -->
-	<extend-property name="locale" values="fr" />
+	<extend-property name="locale" values="ru" />
 
 	<!-- English language, independent of country -->
 	<extend-property name="locale" values="en" />
 
-	<set-property-fallback name="locale" value="fr" />
+	<set-property-fallback name="locale" value="ru" />
 
 	<!-- Inherit the default GWT style sheet. You can change -->
 	<!-- the theme of your GWT application by uncommenting -->

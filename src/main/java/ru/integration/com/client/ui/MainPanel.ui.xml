@@ -1,7 +1,7 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
              xmlns:map="urn:import:org.gwtopenmaps.openlayers.client"
-             xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:t="urn:import:ru.integration.com.client.ui"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:d="urn:import:com.google.gwt.user.datepicker.client" xmlns:t="urn:import:ru.integration.com.client.ui"
              xmlns:c="urn:import:ru.integration.com.client.ui.component">
     <!-- import for i18n messages -->
     <ui:with type="ru.integration.com.client.resource.Messages" field="messages"/>
@@ -42,8 +42,24 @@
             <g:TabPanel ui:field="tp" styleName="{res.style.todoPanel}">
                 <g:Tab text="Входящие звонки">
                     <g:ScrollPanel>
-                        <g:FlowPanel>
-                        </g:FlowPanel>
+                        <g:VerticalPanel styleName="{res.style.todoblock}">
+                            <g:InlineLabel text="Заявка без номера входящего звонка"/>
+                            <g:InlineLabel text="Время начала заполнения заявки"/>
+                            <g:TextBox text="Описание проблемы"/>
+                            <g:TextBox text="Адрес"/>
+                            <g:InlineLabel text="Список узлов с возможным отключением"/>
+                            <g:InlineLabel text="Список потребителей с возможным отключением"/>
+                            <g:InlineLabel text="Время окончания приема заявки"/>
+                            <g:InlineLabel text="Время начала информирования бригады"/>
+                            <g:InlineLabel text="Время окончания информирования бригады"/>
+                            <g:InlineLabel text="Время запланированных работ"/>
+                            <d:DatePicker/>
+                            <g:InlineLabel text="Время начала информирования потребителей об отключении"/>
+                            <g:InlineLabel text="Время окончания информирования потребителей об отключении"/>
+                            <g:InlineLabel text="Время окончания работы над заявкой"/>
+                            <g:InlineLabel text="Время начала информирования потребителей об окончании работ"/>
+                            <g:InlineLabel text="Время окончания информирования потребителей об окончании работ"/>
+                        </g:VerticalPanel>
                     </g:ScrollPanel>
                 </g:Tab>
                 <g:Tab text="Карта">
