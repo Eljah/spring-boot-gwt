@@ -49,7 +49,7 @@
                     </g:FlowPanel>
                 </g:VerticalPanel>
                 <g:FlowPanel>
-                    <c:MapPanel width="400px" height="400px">
+                    <c:MapPanel width="400px" height="400px" ui:field="map">
                     </c:MapPanel>
                 </g:FlowPanel>
             </g:HorizontalPanel>

@@ -110,6 +110,7 @@ public class IncidentController {
                         Address addressReturned = addressMapper.read(text);
                         if (address != null) {
                             _incidentWidget.setAddressSearchResults(addressReturned);
+                            _incidentWidget.vakePointShow();
                         } else {
                             Window.alert("Empty");
                         }

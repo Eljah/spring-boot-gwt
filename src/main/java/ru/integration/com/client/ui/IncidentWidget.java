@@ -7,9 +7,11 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
 import com.google.gwt.user.client.ui.*;
+import org.gwtopenmaps.openlayers.client.MapWidget;
 import ru.integration.com.client.event.EditCustomerEvent;
 import ru.integration.com.client.event.incident.AddressSearchEvent;
 import ru.integration.com.client.ui.component.ImageButton;
+import ru.integration.com.client.ui.component.MapPanel;
 import ru.integration.com.common.model.Address;
 import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Incident;
@@ -62,6 +64,9 @@ public class IncidentWidget extends Composite {
     }
 
     @UiField
+    MapPanel map;
+
+    @UiField
     TextArea descriptionText;
 
     @UiField
@@ -95,6 +100,11 @@ public class IncidentWidget extends Composite {
         typedAddressLabel.setText(address.getTypedAddress());
         nodesLabel.setText(address.getNodes().stream().map(Object::toString).collect(Collectors.joining(", ")));
         customersLabel.setText(address.getCustomers().stream().map(Customer::getName).collect(Collectors.joining(", ")));
+    }
+
+    public void vakePointShow()
+    {
+        map.showFakeObjects();
     }
 
 }
