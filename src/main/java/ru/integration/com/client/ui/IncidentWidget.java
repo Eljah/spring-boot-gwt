@@ -42,4 +42,9 @@ public class IncidentWidget extends Composite {
     @UiField
     InlineLabel incidentStartedTime;
 
+    public void setUpStartDate()
+    {
+        incidentStartedTime.setText(currentIncident.getIncedentStart().toLocaleString());
+    }
+
 }

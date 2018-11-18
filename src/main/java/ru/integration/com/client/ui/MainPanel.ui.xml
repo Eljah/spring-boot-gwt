@@ -43,6 +43,7 @@
                 <g:Tab text="Входящие звонки">
                     <g:ScrollPanel>
                         <g:VerticalPanel styleName="{res.style.todoblock}">
+                            <g:FlowPanel ui:field="incidentPanel"/>
                             <g:InlineLabel text="Заявка без номера входящего звонка"/>
                             <g:InlineLabel text="Время начала заполнения заявки"/>
                             <g:TextBox text="Описание проблемы"/>

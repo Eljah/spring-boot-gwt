@@ -10,13 +10,18 @@
              field="res"/>
 
     <g:FlowPanel styleName="{res.style.todoPanel}">
-            <g:InlineLabel styleName="{res.style.todoText}" ui:field="incidentStartedTime"/>
-            <g:InlineLabel styleName="{res.style.todoText}" ui:field="locationBox"/>
-            <g:InlineLabel styleName="{res.style.todoText}" ui:field="phoneNumberBox"/>
-            <g:InlineLabel styleName="{res.style.todoText}" ui:field="nodeId"/>
-            <c:ImageButton icon="fa fa-edit" styleName="{res.style.sendButton}" text="Редактировать"
-                           ui:field="editButton"/>
-            <c:ImageButton icon="fa fa-remove" styleName="{res.style.sendButton}" text="Удалить"
-                           ui:field="deleteButton"/>
+        <g:VerticalPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Начало регистрации инцидента:"/>
+                <g:InlineLabel styleName="{res.style.todoText}" ui:field="incidentStartedTime"/>
+            </g:FlowPanel>
+        </g:VerticalPanel>
+        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="locationBox"/>-->
+        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="phoneNumberBox"/>-->
+        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="nodeId"/>-->
+        <!--<c:ImageButton icon="fa fa-edit" styleName="{res.style.sendButton}" text="Редактировать"-->
+        <!--ui:field="editButton"/>-->
+        <!--<c:ImageButton icon="fa fa-remove" styleName="{res.style.sendButton}" text="Удалить"-->
+        <!--ui:field="deleteButton"/>-->
     </g:FlowPanel>
 </ui:UiBinder> 

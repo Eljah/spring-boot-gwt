@@ -1,5 +1,6 @@
 package ru.integration.com.client.ui;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,12 +17,14 @@ import com.google.gwt.user.client.ui.*;
 import com.google.inject.Inject;
 
 import ru.integration.com.client.event.*;
+import ru.integration.com.client.event.incident.NewIncidentEvent;
 import ru.integration.com.client.model.ModelHandler;
 import ru.integration.com.client.ui.component.ImageButton;
 import ru.integration.com.client.ui.component.MapPanel;
 import ru.integration.com.client.ui.schedule.ReloadCustomerListCommand;
 import ru.integration.com.client.ui.schedule.ReloadTodoListCommand;
 import ru.integration.com.common.model.Customer;
+import ru.integration.com.common.model.Incident;
 import ru.integration.com.common.model.Todo;
 
 /**
@@ -68,6 +71,10 @@ public class MainPanel extends Composite {
 
 	@UiField
 	TextBox nodeIdTextBox;
+
+
+	@UiField
+	FlowPanel incidentPanel;
 
 
 	//@UiField
@@ -138,7 +145,7 @@ public class MainPanel extends Composite {
 		// retrieve textbox text
 		//String todoText = textBox.getText();
 		// send it to controller for handle business event
-		//_eventBus.fireEvent(new AddTodoEvent(todoText));
+		_eventBus.fireEvent(new NewIncidentEvent(new Date()));
 	}
 
 	@UiHandler("historyButton")
@@ -269,5 +276,11 @@ public class MainPanel extends Composite {
 			// schedule the command call
 			Scheduler.get().scheduleDeferred(reloadCommand);
 		}
+	}
+
+	public void newIncident(IncidentWidget incidentWidget)
+	{
+		incidentPanel.clear();
+		incidentPanel.add(incidentWidget);
 	}
 }
