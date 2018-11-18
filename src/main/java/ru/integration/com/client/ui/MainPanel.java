@@ -141,11 +141,13 @@ public class MainPanel extends Composite {
 
 	@UiHandler("addButton")
 	void onAddButtonClick(ClickEvent e) {
-		tp.selectTab(0);
+
 		// retrieve textbox text
 		//String todoText = textBox.getText();
 		// send it to controller for handle business event
-		_eventBus.fireEvent(new NewIncidentEvent(new Date()));
+		Incident newIncident=new Incident();
+		newIncident.setIncedentStart(new Date());
+		_eventBus.fireEvent(new NewIncidentEvent(newIncident));
 	}
 
 	@UiHandler("historyButton")
@@ -282,5 +284,10 @@ public class MainPanel extends Composite {
 	{
 		incidentPanel.clear();
 		incidentPanel.add(incidentWidget);
+	}
+
+	public void newIncidentTab()
+	{
+		tp.selectTab(0);
 	}
 }

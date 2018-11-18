@@ -6,6 +6,7 @@ import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.inject.Inject;
 import ru.integration.com.client.event.AddTodoEvent;
 import ru.integration.com.client.event.AddTodoEventHandler;
+import ru.integration.com.client.event.incident.IncidentMapper;
 import ru.integration.com.client.event.incident.NewIncidentEvent;
 import ru.integration.com.client.event.incident.NewIncidentEventHandler;
 import ru.integration.com.client.model.IncidentModelHandler;
@@ -35,9 +36,6 @@ public class IncidentController {
     private IncidentWidget _incidentWidget;
     private MainPanel _mainPanel;
 
-    public static interface IncidentMapper extends ObjectMapper<Incident> {
-    }
-
     IncidentMapper mapper = GWT.create(IncidentMapper.class);
 
     @Inject
@@ -58,7 +56,7 @@ public class IncidentController {
             @Override
             public void onNewIncidentEventHandler(NewIncidentEvent event) {
 
-                newIncident(event.getStartDate());
+                newIncident(event.getIncident());
                 //addTodo(event.getTodoTitle());
             }
         });
@@ -66,9 +64,7 @@ public class IncidentController {
 
 
 
-    protected void newIncident(Date startTime) {
-        Incident incident=new Incident();
-        incident.setIncedentStart(startTime);
+    protected void newIncident(Incident incident) {
         _incidentModelHandler.add(incident);
         _incidentWidget=new IncidentWidget(incident,_eventBus);
         _mainPanel.newIncident(_incidentWidget);

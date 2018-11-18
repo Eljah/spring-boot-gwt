@@ -2,6 +2,7 @@ package ru.integration.com.client.event.incident;
 
 import com.google.gwt.event.shared.GwtEvent;
 import ru.integration.com.client.event.AddCustomerEventHandler;
+import ru.integration.com.common.model.Incident;
 
 import java.util.Date;
 
@@ -14,14 +15,14 @@ public class NewIncidentEvent extends GwtEvent<NewIncidentEventHandler>{
     /**
      * todo title
      */
-    private Date startDate;
+    private Incident incident;
 
-    public Date getStartDate() {
-        return startDate;
+    public Incident getIncident() {
+        return incident;
     }
 
-    public NewIncidentEvent(Date startDate) {
-        this.startDate = startDate;
+    public NewIncidentEvent(Incident incident) {
+        this.incident = incident;
     }
 
     @Override

@@ -32,7 +32,10 @@ public class CustomerController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
+
+
     public List<Customer> all() {
+
         return customerList;
     }
 }

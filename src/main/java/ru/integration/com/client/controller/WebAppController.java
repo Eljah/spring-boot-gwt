@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.github.nmorel.gwtjackson.client.ObjectMapper;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.http.client.Request;
 import com.google.gwt.http.client.RequestBuilder;
@@ -15,8 +16,12 @@ import com.google.gwt.user.client.Window;
 import com.google.inject.Inject;
 
 import ru.integration.com.client.event.*;
+import ru.integration.com.client.event.incident.NewIncidentEvent;
+import ru.integration.com.client.event.incident.NewIncidentEventHandler;
 import ru.integration.com.client.model.ModelHandler;
+import ru.integration.com.client.ui.IncidentWidget;
 import ru.integration.com.client.ui.MainPanel;
+import ru.integration.com.client.ui.schedule.CheckNewIncidentCommand;
 import ru.integration.com.common.model.Customer;
 import ru.integration.com.common.model.Todo;
 
@@ -127,6 +132,16 @@ public class WebAppController {
                 saveCustomer(event.getCustomer());
             }
         });
+
+        _eventBus.addHandler(NewIncidentEvent.TYPE, new NewIncidentEventHandler() {
+            @Override
+            public void onNewIncidentEventHandler(NewIncidentEvent event) {
+                newIncidentTab();
+            }
+        });
+
+
+        Scheduler.get().scheduleDeferred(new CheckNewIncidentCommand(_eventBus));
     }
 
     /**
@@ -201,6 +216,13 @@ public class WebAppController {
         _modelHandler.add(t);
         _mainPanel.addTodoToPanel(t);
     }
+
+    protected void newIncidentTab() {
+        _mainPanel.newIncidentTab();
+        //_modelHandler.removeCustomer(todo);
+        //_mainPanel.removeCustomerFromPanel(todo);
+    }
+
 
     /**
      * delete a todo (ui & model) from given id
