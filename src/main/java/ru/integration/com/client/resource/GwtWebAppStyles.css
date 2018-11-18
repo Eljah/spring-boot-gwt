@@ -21,18 +21,18 @@
 
 .scrollable {
    overflow-y: scroll;
-   height: 400px;
+   height: 600px;
    width: 100%;
 }
 
 .todoblock {
 	position: relative;
 	float: center;
-	margin: 20px;
+	margin: 10px;
 	border-radius: 10px;
 	background: none repeat scroll 0 0 #FAF9F5;
 	margin-left: auto;
-	padding: 20px;
+	padding: 10px;
 	margin-right: auto;
 	width: 90%;
 	line-height: 2;

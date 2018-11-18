@@ -9,8 +9,10 @@
     <ui:with type="ru.integration.com.client.resource.ApplicationResources"
              field="res"/>
 
-        <g:VerticalPanel styleName="{res.style.todoPanel}">
-                <g:FlowPanel styleName="{res.style.scrollable}">
+    <g:VerticalPanel styleName="{res.style.todoPanel}">
+        <g:FlowPanel styleName="{res.style.scrollable}">
+            <g:HorizontalPanel>
+                <g:VerticalPanel>
                     <g:FlowPanel>
                         <g:InlineLabel styleName="{res.style.todoText}" text="Начало регистрации инцидента:"/>
                         <g:InlineLabel styleName="{res.style.todoText}" ui:field="incidentStartedTime"/>
@@ -28,22 +30,65 @@
                                     ui:field="descriptionText"/>
                     </g:FlowPanel>
                     <g:FlowPanel>
-                        <g:TextBox styleName="{res.style.gwtTextArea}" visibleLength="50"/>
+                        <g:TextBox styleName="{res.style.gwtTextArea}" visibleLength="50" ui:field="searchAddressBox"/>
                         <c:ImageButton icon="fa fa-search" styleName="{res.style.sendButton}"
+                                       ui:field="searchAddressButton"
                                        text="Поиск узлов по текстовому адресу"/>
                     </g:FlowPanel>
                     <g:FlowPanel>
-                        <c:MapPanel width="500px" height="500px">
-                        </c:MapPanel>
+                        <g:InlineLabel styleName="{res.style.todoText}" text="Введеный текст адреса:"/>
+                        <g:InlineLabel styleName="{res.style.todoText}" ui:field="typedAddressLabel"/>
                     </g:FlowPanel>
+                    <g:FlowPanel>
+                        <g:InlineLabel styleName="{res.style.todoText}" text="Узлы в работе:"/>
+                        <g:InlineLabel styleName="{res.style.todoText}" ui:field="nodesLabel"/>
+                    </g:FlowPanel>
+                    <g:FlowPanel>
+                        <g:InlineLabel styleName="{res.style.todoText}" text="Отключаемые потребители:"/>
+                        <g:InlineLabel styleName="{res.style.todoText}" ui:field="customersLabel"/>
+                    </g:FlowPanel>
+                </g:VerticalPanel>
+                <g:FlowPanel>
+                    <c:MapPanel width="400px" height="400px">
+                    </c:MapPanel>
                 </g:FlowPanel>
-        </g:VerticalPanel>
-        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="locationBox"/>-->
-        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="phoneNumberBox"/>-->
-        <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="nodeId"/>-->
-        <!--<c:ImageButton icon="fa fa-edit" styleName="{res.style.sendButton}" text="Редактировать"-->
-        <!--ui:field="editButton"/>-->
-        <!--<c:ImageButton icon="fa fa-remove" styleName="{res.style.sendButton}" text="Удалить"-->
-        <!--ui:field="deleteButton"/>-->
+            </g:HorizontalPanel>
+            <g:FlowPanel>
+                <c:ImageButton icon="fa fa-phone" styleName="{res.style.sendButton}"
+                               text="Сделать звонок бригаде"/>
+                <c:ImageButton icon="fa fa-phone" styleName="{res.style.sendButton}"
+                               text="Сделать запись сообщения для потребителей"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Время окончания регистрации заявки:"/>
+                <g:InlineLabel styleName="{res.style.todoText}"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Время начала информирования бригады:"/>
+                <g:InlineLabel styleName="{res.style.todoText}"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Время окончания информирования бригады:"/>
+                <g:InlineLabel styleName="{res.style.todoText}"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Время начала информирования потребителей:"/>
+                <g:InlineLabel styleName="{res.style.todoText}"/>
+            </g:FlowPanel>
+            <g:FlowPanel>
+                <g:InlineLabel styleName="{res.style.todoText}" text="Время окончания информирования потребителей:"/>
+                <g:InlineLabel styleName="{res.style.todoText}"/>
+            </g:FlowPanel>
+
+
+        </g:FlowPanel>
+    </g:VerticalPanel>
+    <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="locationBox"/>-->
+    <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="phoneNumberBox"/>-->
+    <!--<g:InlineLabel styleName="{res.style.todoText}" ui:field="nodeId"/>-->
+    <!--<c:ImageButton icon="fa fa-edit" styleName="{res.style.sendButton}" text="Редактировать"-->
+    <!--ui:field="editButton"/>-->
+    <!--<c:ImageButton icon="fa fa-remove" styleName="{res.style.sendButton}" text="Удалить"-->
+    <!--ui:field="deleteButton"/>-->
 
 </ui:UiBinder> 

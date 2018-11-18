@@ -44,20 +44,6 @@
                     <g:ScrollPanel>
                         <g:VerticalPanel styleName="{res.style.todoblock}">
                             <g:FlowPanel ui:field="incidentPanel"/>
-                            <g:TextBox text="Описание проблемы"/>
-                            <g:TextBox text="Адрес"/>
-                            <g:InlineLabel text="Список узлов с возможным отключением"/>
-                            <g:InlineLabel text="Список потребителей с возможным отключением"/>
-                            <g:InlineLabel text="Время окончания приема заявки"/>
-                            <g:InlineLabel text="Время начала информирования бригады"/>
-                            <g:InlineLabel text="Время окончания информирования бригады"/>
-                            <g:InlineLabel text="Время запланированных работ"/>
-                            <d:DatePicker/>
-                            <g:InlineLabel text="Время начала информирования потребителей об отключении"/>
-                            <g:InlineLabel text="Время окончания информирования потребителей об отключении"/>
-                            <g:InlineLabel text="Время окончания работы над заявкой"/>
-                            <g:InlineLabel text="Время начала информирования потребителей об окончании работ"/>
-                            <g:InlineLabel text="Время окончания информирования потребителей об окончании работ"/>
                         </g:VerticalPanel>
                     </g:ScrollPanel>
                 </g:Tab>

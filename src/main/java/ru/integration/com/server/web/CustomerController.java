@@ -27,7 +27,7 @@ public class CustomerController {
         customerList.add(new Customer("ТСЖ Белая лебеда","Роторная, 1", "245", "79047640086"));
         customerList.add(new Customer("ТСЖ Прокрастинация","Роторная, 2", "247", "79047640087"));
         customerList.add(new Customer("ТСЖ Pathetic Brilliant Lifestyle","Роторная, 3", "248", "79047640088"));
-        customerList.add(new Customer("ТСЖ Ярканат","Роторная, 4", "249l", "79047640089"));
+        customerList.add(new Customer("ТСЖ Ярканат","Роторная, 4", "249", "79047640089"));
     }
 
     @RequestMapping(method = RequestMethod.GET)
