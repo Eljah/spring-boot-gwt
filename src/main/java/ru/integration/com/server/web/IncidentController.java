@@ -56,7 +56,7 @@ public class IncidentController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/current")
     @ResponseStatus(HttpStatus.OK)
-    public Incident updateCurrentIncident(Incident incident) {
+    public Incident updateCurrentIncident(@RequestBody Incident incident) {
         current=incident;
         return current;
     }

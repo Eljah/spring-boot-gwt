@@ -89,6 +89,7 @@ public class IncidentController {
         _mainPanel.newIncident(_incidentWidget);
         _incidentWidget.setUpStartDate();
         _incidentWidget.setIncidentPhoneNumber();
+
     }
 
     protected void requestAddress(String address) {
@@ -133,6 +134,7 @@ public class IncidentController {
     protected void updateIncident(Incident incident) {
         String pageBaseUrl = GWT.getHostPageBaseURL();
         RequestBuilder rb = new RequestBuilder(RequestBuilder.POST, pageBaseUrl + "/rest/incidents/current");
+        rb.setHeader("Content-Type","application/json");
         rb.setRequestData(incidentMapper.write(incident));
         rb.setCallback(new RequestCallback() {
             Incident incident2=null;
@@ -147,6 +149,7 @@ public class IncidentController {
                     if (text != null) {
                         incident2 = incidentMapper.read(text);
                         _incidentModelHandler.update(incident2);
+                        _eventBus.fireEvent(new NewIncidentEvent(incident));
                         //_incidentWidget.
                     }
 
