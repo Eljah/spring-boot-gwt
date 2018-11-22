@@ -112,6 +112,7 @@ public class MainPanel extends Composite {
 
     Map<String, CustomerWidget> _customersWidgets;
 
+    ListDataProvider<Incident> dataProvider;
     /**
      * event bus
      */
@@ -209,7 +210,7 @@ public class MainPanel extends Composite {
         // Set the message to display when the table is empty.
         dataGrid.setEmptyTableWidget(new Label("Нет данных"));
 
-        ListDataProvider<Incident> dataProvider = new ListDataProvider<Incident>();
+        dataProvider = new ListDataProvider<Incident>();
         dataProvider.setList(incidents);
 
         // Attach a column sort handler to the ListDataProvider to sort the list.
@@ -287,19 +288,19 @@ public class MainPanel extends Composite {
         });
 
         dataGrid.addColumn(dateStarted, "Поступление информации о проблеме"); //todo constants
-//        dateStarted.setFieldUpdater(new FieldUpdater<Incident, String>() {
+//        dateStarted.setFieldUpdater(new FieldUpdater<Incident, Date>() {
 //            @Override
-//            public void update(int index, Incident object, String value) {
+//            public void update(int index, Incident object, Date value) {
 //                // Called when the user changes the value.
-//                object.setDescription(value);
+//                object.setIncedentStart(value);
 //                //ContactDatabase.get().refreshDisplays();
 //            }
 //        });
         dataGrid.setColumnWidth(dateStarted, 20, Style.Unit.PCT);
 
         // Decription
-        TextColumn<Incident> description =
-                new TextColumn<Incident>() {
+        Column<Incident,String> description =
+                new Column<Incident,String>(new EditTextCell()) {
                     @Override
                     public String getValue(Incident object) {
                         //return "Value";
@@ -320,6 +321,8 @@ public class MainPanel extends Composite {
             public void update(int index, Incident object, String value) {
                 // Called when the user changes the value.
                 object.setDescription(value);
+                dataProvider.refresh();
+                dataGrid.redraw();
                 //ContactDatabase.get().refreshDisplays();
             }
         });
