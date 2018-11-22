@@ -5,6 +5,7 @@ import java.util.*;
 import java.util.List;
 
 import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.DateCell;
 import com.google.gwt.cell.client.EditTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
@@ -13,6 +14,7 @@ import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.i18n.client.Constants;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -22,10 +24,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.view.client.DefaultSelectionEventManager;
-import com.google.gwt.view.client.MultiSelectionModel;
-import com.google.gwt.view.client.ProvidesKey;
-import com.google.gwt.view.client.SelectionModel;
+import com.google.gwt.view.client.*;
 import com.google.inject.Binder;
 import com.google.inject.Inject;
 
@@ -210,9 +209,12 @@ public class MainPanel extends Composite {
         // Set the message to display when the table is empty.
         dataGrid.setEmptyTableWidget(new Label("Нет данных"));
 
+        ListDataProvider<Incident> dataProvider = new ListDataProvider<Incident>();
+        dataProvider.setList(incidents);
+
         // Attach a column sort handler to the ListDataProvider to sort the list.
         ColumnSortEvent.ListHandler<Incident> sortHandler =
-                new ColumnSortEvent.ListHandler<Incident>(incidents) {
+                new ColumnSortEvent.ListHandler<Incident>(dataProvider.getList()) {
                     @Override
                     public void onColumnSort(ColumnSortEvent event) {
                         super.onColumnSort(event);
@@ -220,7 +222,6 @@ public class MainPanel extends Composite {
                     }
 
                 };
-
         dataGrid.addColumnSortHandler(sortHandler);
 
         // Create a Pager to control the table.
@@ -243,7 +244,7 @@ public class MainPanel extends Composite {
         //initTableColumns();
         //dataGrid.redraw();
         // Add the CellList to the adapter in the database.
-        //ContactDatabase.get().addDataDisplay(dataGrid);
+        dataProvider.addDataDisplay(dataGrid);
 
     }
 
@@ -267,8 +268,37 @@ public class MainPanel extends Composite {
         dataGrid.addColumn(checkColumn, "Выбор");
         dataGrid.setColumnWidth(checkColumn, 40, Style.Unit.PX);
 
-        // First name.
-        TextColumn<Incident> firstNameColumn =
+        DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
+        // Decription
+        Column<Incident,Date> dateStarted =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getIncedentStart();
+                    }
+                };
+        dateStarted.setSortable(true);
+        sortHandler.setComparator(dateStarted, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getIncedentStart().compareTo(o2.getIncedentStart());
+            }
+        });
+
+        dataGrid.addColumn(dateStarted, "Поступление информации о проблеме"); //todo constants
+//        dateStarted.setFieldUpdater(new FieldUpdater<Incident, String>() {
+//            @Override
+//            public void update(int index, Incident object, String value) {
+//                // Called when the user changes the value.
+//                object.setDescription(value);
+//                //ContactDatabase.get().refreshDisplays();
+//            }
+//        });
+        dataGrid.setColumnWidth(dateStarted, 20, Style.Unit.PCT);
+
+        // Decription
+        TextColumn<Incident> description =
                 new TextColumn<Incident>() {
                     @Override
                     public String getValue(Incident object) {
@@ -276,16 +306,16 @@ public class MainPanel extends Composite {
                         return object.getDescription();
                     }
                 };
-        firstNameColumn.setSortable(true);
-        sortHandler.setComparator(firstNameColumn, new Comparator<Incident>() {
+        description.setSortable(true);
+        sortHandler.setComparator(description, new Comparator<Incident>() {
             @Override
             public int compare(Incident o1, Incident o2) {
                 return o1.getDescription().compareTo(o2.getDescription());
             }
         });
 
-        dataGrid.addColumn(firstNameColumn, "Описание"); //todo constants
-        firstNameColumn.setFieldUpdater(new FieldUpdater<Incident, String>() {
+        dataGrid.addColumn(description, "Описание"); //todo constants
+        description.setFieldUpdater(new FieldUpdater<Incident, String>() {
             @Override
             public void update(int index, Incident object, String value) {
                 // Called when the user changes the value.
@@ -293,7 +323,7 @@ public class MainPanel extends Composite {
                 //ContactDatabase.get().refreshDisplays();
             }
         });
-        dataGrid.setColumnWidth(firstNameColumn, 20, Style.Unit.PCT);
+        dataGrid.setColumnWidth(description, 20, Style.Unit.PCT);
 
 //		// Last name.
 //		Column<ContactInfo, String> lastNameColumn =
