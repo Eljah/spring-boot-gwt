@@ -186,7 +186,7 @@ public class MainPanel extends Composite {
        // dataGrid.setWidth("500px");
         dataGrid.setWidth("100%");
         //dataGrid.setWidth("500px");
-        dataGrid.setHeight("600px");
+        dataGrid.setHeight("620px");
 
     /*
      * Do not refresh the headers every time the data is updated. The footer
