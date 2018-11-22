@@ -13,25 +13,27 @@ public class IncidentModelHandler {
     List<Incident> openIncidents;
     Incident currentIncident;
 
-    public IncidentModelHandler()
-    {
-        openIncidents=new ArrayList<>();
+    public IncidentModelHandler() {
+        openIncidents = new ArrayList<>();
     }
 
-    public void add(Incident incident)
-    {
-        if (currentIncident==null)
-        {
-            currentIncident=incident;
+    public void add(Incident incident) {
+        if (currentIncident == null) {
+            currentIncident = incident;
         }
         openIncidents.add(incident);
     }
 
-    public void remove(Incident incident)
-    {
-        if (currentIncident==incident)
-        {
-            currentIncident=null;
+    public void update(Incident incident) {
+        if (currentIncident == null) {
+            currentIncident = incident;
+        }
+        currentIncident = incident;
+    }
+
+    public void remove(Incident incident) {
+        if (currentIncident == incident) {
+            currentIncident = null;
         }
         openIncidents.remove(incident);
     }

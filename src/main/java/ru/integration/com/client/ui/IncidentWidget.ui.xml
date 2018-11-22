@@ -55,7 +55,7 @@
             </g:HorizontalPanel>
             <g:FlowPanel>
                 <c:ImageButton icon="fa fa-phone" styleName="{res.style.sendButton}"
-                               text="Сделать звонок бригаде"/>
+                               text="Сделать звонок бригаде" ui:field='repairCallButton'/>
                 <c:ImageButton icon="fa fa-phone" styleName="{res.style.sendButton}"
                                text="Сделать запись сообщения для потребителей"/>
             </g:FlowPanel>

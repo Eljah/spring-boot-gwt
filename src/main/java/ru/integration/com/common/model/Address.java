@@ -7,7 +7,7 @@ import java.util.List;
  */
 public class Address {
     String typedAddress;
-    List<String> nodes;
+    List<Long> nodes;
     List<Customer> customers;
 
     public String getTypedAddress() {
@@ -18,11 +18,11 @@ public class Address {
         this.typedAddress = typedAddress;
     }
 
-    public List<String> getNodes() {
+    public List<Long> getNodes() {
         return nodes;
     }
 
-    public void setNodes(List<String> nodes) {
+    public void setNodes(List<Long> nodes) {
         this.nodes = nodes;
     }
 

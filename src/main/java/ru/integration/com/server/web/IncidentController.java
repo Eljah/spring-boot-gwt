@@ -47,10 +47,18 @@ public class IncidentController {
 
     @RequestMapping(method = RequestMethod.GET, path = "/new/{number}")
     @ResponseStatus(HttpStatus.OK)
-    public void setNewIncident(@PathVariable String number) {
+    public Incident setNewIncident(@PathVariable String number) {
         current=new Incident();
         current.setIncedentStart(new Date());
         current.setPhoneNumber(number);
+        return current;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/current")
+    @ResponseStatus(HttpStatus.OK)
+    public Incident updateCurrentIncident(Incident incident) {
+        current=incident;
+        return current;
     }
 
     @RequestMapping(method = RequestMethod.GET, path = "/address/{addressTyped}")
@@ -58,10 +66,10 @@ public class IncidentController {
     public Address setSearchAddress(@PathVariable String addressTyped) {
         Address address=new Address();
         address.setTypedAddress(addressTyped);
-        List<String> nodes=new ArrayList<String>();
-        nodes.add("245");
-        nodes.add("247");
-        nodes.add("249");
+        List<Long> nodes=new ArrayList<Long>();
+        nodes.add(245l);
+        nodes.add(247l);
+        nodes.add(249l);
         address.setNodes(nodes);
         List<Customer> customerList=new ArrayList<Customer>();
         customerList.add(new Customer("ТСЖ Белая лебеда","Роторная, 1", "245", "79047640086"));
