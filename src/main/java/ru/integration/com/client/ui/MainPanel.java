@@ -181,7 +181,8 @@ public class MainPanel extends Composite {
 
         //init datagred tot remove to separate method
         //dataGrid = new DataGrid<Incident>(KEY_PROVIDER);
-        dataGrid.setWidth("500px");
+       // dataGrid.setWidth("500px");
+        dataGrid.setWidth("100%");
         //dataGrid.setWidth("500px");
         dataGrid.setHeight("500px");
 
@@ -195,11 +196,22 @@ public class MainPanel extends Composite {
         i.setIncedentStart(new Date());
         i.setPhoneNumber("7904764008");
         i.setDescription("Прорыв канализации, вытекает через колодец на проезжую часть");
+        i.setConversationEnd(new Date());
+        i.setReactionStart(new Date());
+        i.setReactionEnd(new Date());
+        i.setInformingStart(new Date());
+        i.setInformingEnd(new Date());
+
         incidents.add(i);
         i = new Incident();
         i.setIncedentStart(new Date("1970-01-01"));
         i.setPhoneNumber("7904764008");
         i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-01-01"));
+        i.setReactionStart(new Date("1970-01-02"));
+        i.setReactionEnd(new Date("1970-01-02"));
+        i.setInformingStart(new Date("1970-01-03"));
+        i.setInformingEnd(new Date("1970-01-03"));
         incidents.add(i);
 
         //Window.alert(incidents.size()+"");
@@ -287,7 +299,8 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(dateStarted, "Поступление информации о проблеме"); //todo constants
+        //dataGrid.addColumn(dateStarted, "Поступление информации о проблеме"); //todo constants
+        dataGrid.addColumn(dateStarted, SafeHtmlUtils.fromSafeConstant("Поступление информации<br/>о проблеме"));
 //        dateStarted.setFieldUpdater(new FieldUpdater<Incident, Date>() {
 //            @Override
 //            public void update(int index, Incident object, Date value) {
@@ -327,6 +340,108 @@ public class MainPanel extends Composite {
             }
         });
         dataGrid.setColumnWidth(description, 20, Style.Unit.PCT);
+
+        // End
+        Column<Incident,Date> conversationEnd =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getConversationEnd();
+                    }
+                };
+        conversationEnd.setSortable(true);
+        sortHandler.setComparator(conversationEnd, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getConversationEnd().compareTo(o2.getConversationEnd());
+            }
+        });
+
+        dataGrid.addColumn(conversationEnd, SafeHtmlUtils.fromSafeConstant("Окончание приема<br/>информации о проблеме"));
+        dataGrid.setColumnWidth(conversationEnd, 20, Style.Unit.PCT);
+
+        // ReactionStart
+        Column<Incident,Date> reactionStart =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getReactionStart();
+                    }
+                };
+        reactionStart.setSortable(true);
+        sortHandler.setComparator(reactionStart, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getReactionStart().compareTo(o2.getReactionStart());
+            }
+        });
+
+        dataGrid.addColumn(reactionStart, SafeHtmlUtils.fromSafeConstant("Начало информирования<br/>бригады о проблеме"));
+        dataGrid.setColumnWidth(reactionStart, 20, Style.Unit.PCT);
+
+// ReactionStart
+        Column<Incident,Date> reactionEnd =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getReactionEnd();
+                    }
+                };
+        reactionEnd.setSortable(true);
+        sortHandler.setComparator(reactionEnd, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getReactionEnd().compareTo(o2.getReactionEnd());
+            }
+        });
+
+        dataGrid.addColumn(reactionEnd, SafeHtmlUtils.fromSafeConstant("Конец информирования<br/>бригады о проблеме"));
+        dataGrid.setColumnWidth(reactionEnd, 20, Style.Unit.PCT);
+
+        // InformingStart
+        Column<Incident,Date> informingStart =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getInformingStart();
+                    }
+                };
+        informingStart.setSortable(true);
+        sortHandler.setComparator(informingStart, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getInformingStart().compareTo(o2.getInformingStart());
+            }
+        });
+
+        dataGrid.addColumn(informingStart, SafeHtmlUtils.fromSafeConstant("Начало информирования<br/>потребителей о проблеме"));
+        dataGrid.setColumnWidth(informingStart, 20, Style.Unit.PCT);
+
+// ReactionStart
+        Column<Incident,Date> informingEnd =
+                new Column<Incident, Date>(new DateCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getInformingEnd();
+                    }
+                };
+        informingEnd.setSortable(true);
+        sortHandler.setComparator(informingEnd, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getReactionEnd().compareTo(o2.getInformingEnd());
+            }
+        });
+
+        dataGrid.addColumn(informingEnd, SafeHtmlUtils.fromSafeConstant("Конец информирования<br/>потребителей о проблеме"));
+        dataGrid.setColumnWidth(informingEnd, 20, Style.Unit.PCT);
+
+
 
 //		// Last name.
 //		Column<ContactInfo, String> lastNameColumn =
