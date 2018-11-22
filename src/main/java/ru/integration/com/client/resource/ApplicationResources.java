@@ -17,7 +17,11 @@ public interface ApplicationResources extends ClientBundle {
     
     @Source("ru/integration/com/client/resource/GwtWebAppStyles.css")
     public GwtWebAppStyles style();
-    
+
+    @Source("msword.png")
+    @ImageOptions(repeatStyle=RepeatStyle.Both)
+    ImageResource msWordIcon();
+
     @Source("delete.png")
     @ImageOptions(repeatStyle=RepeatStyle.Both)
     ImageResource deleteIcon();

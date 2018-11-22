@@ -3,18 +3,18 @@ package ru.integration.com.client.ui;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
-import com.google.gwt.cell.client.CheckboxCell;
-import com.google.gwt.cell.client.DateCell;
-import com.google.gwt.cell.client.EditTextCell;
-import com.google.gwt.cell.client.FieldUpdater;
+import com.google.gwt.cell.client.*;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.core.client.Scheduler;
+import com.google.gwt.dom.client.Node;
 import com.google.gwt.dom.client.Style;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.shared.SimpleEventBus;
 import com.google.gwt.i18n.client.Constants;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.resources.client.ImageResource;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -23,6 +23,7 @@ import com.google.gwt.user.cellview.client.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.*;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.view.client.*;
 import com.google.inject.Binder;
@@ -31,6 +32,7 @@ import com.google.inject.Inject;
 import ru.integration.com.client.event.*;
 import ru.integration.com.client.event.incident.NewIncidentEvent;
 import ru.integration.com.client.model.ModelHandler;
+import ru.integration.com.client.resource.ApplicationResources;
 import ru.integration.com.client.ui.component.ImageButton;
 import ru.integration.com.client.ui.component.MapPanel;
 import ru.integration.com.client.ui.schedule.ReloadCustomerListCommand;
@@ -184,7 +186,7 @@ public class MainPanel extends Composite {
        // dataGrid.setWidth("500px");
         dataGrid.setWidth("100%");
         //dataGrid.setWidth("500px");
-        dataGrid.setHeight("500px");
+        dataGrid.setHeight("600px");
 
     /*
      * Do not refresh the headers every time the data is updated. The footer
@@ -201,6 +203,7 @@ public class MainPanel extends Composite {
         i.setReactionEnd(new Date());
         i.setInformingStart(new Date());
         i.setInformingEnd(new Date());
+        i.setRepairEnd(new Date());
 
         incidents.add(i);
         i = new Incident();
@@ -212,7 +215,164 @@ public class MainPanel extends Composite {
         i.setReactionEnd(new Date("1970-01-02"));
         i.setInformingStart(new Date("1970-01-03"));
         i.setInformingEnd(new Date("1970-01-03"));
+        i.setRepairEnd(new Date("1970-01-04"));
         incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-01-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-02-01"));
+        i.setReactionStart(new Date("1970-02-02"));
+        i.setReactionEnd(new Date("1970-02-02"));
+        i.setInformingStart(new Date("1970-02-03"));
+        i.setInformingEnd(new Date("1970-02-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-03-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-03-01"));
+        i.setReactionStart(new Date("1970-03-02"));
+        i.setReactionEnd(new Date("1970-03-02"));
+        i.setInformingStart(new Date("1970-03-03"));
+        i.setInformingEnd(new Date("1970-03-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-04-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-04-01"));
+        i.setReactionStart(new Date("1970-04-02"));
+        i.setReactionEnd(new Date("1970-04-02"));
+        i.setInformingStart(new Date("1970-04-03"));
+        i.setInformingEnd(new Date("1970-04-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-05-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-05-01"));
+        i.setReactionStart(new Date("1970-05-02"));
+        i.setReactionEnd(new Date("1970-05-02"));
+        i.setInformingStart(new Date("1970-05-03"));
+        i.setInformingEnd(new Date("1970-05-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-06-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-06-01"));
+        i.setReactionStart(new Date("1970-06-02"));
+        i.setReactionEnd(new Date("1970-06-02"));
+        i.setInformingStart(new Date("1970-06-03"));
+        i.setInformingEnd(new Date("1970-06-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-07-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-07-01"));
+        i.setReactionStart(new Date("1970-07-02"));
+        i.setReactionEnd(new Date("1970-07-02"));
+        i.setInformingStart(new Date("1970-07-03"));
+        i.setInformingEnd(new Date("1970-07-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-08-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-08-01"));
+        i.setReactionStart(new Date("1970-08-02"));
+        i.setReactionEnd(new Date("1970-08-02"));
+        i.setInformingStart(new Date("1970-08-03"));
+        i.setInformingEnd(new Date("1970-08-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-09-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-09-01"));
+        i.setReactionStart(new Date("1970-09-02"));
+        i.setReactionEnd(new Date("1970-09-02"));
+        i.setInformingStart(new Date("1970-09-03"));
+        i.setInformingEnd(new Date("1970-09-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-10-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-10-01"));
+        i.setReactionStart(new Date("1970-10-02"));
+        i.setReactionEnd(new Date("1970-10-02"));
+        i.setInformingStart(new Date("1970-10-03"));
+        i.setInformingEnd(new Date("1970-10-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-11-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-11-01"));
+        i.setReactionStart(new Date("1970-11-02"));
+        i.setReactionEnd(new Date("1970-11-02"));
+        i.setInformingStart(new Date("1970-11-03"));
+        i.setInformingEnd(new Date("1970-11-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-12-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-12-01"));
+        i.setReactionStart(new Date("1970-12-02"));
+        i.setReactionEnd(new Date("1970-12-02"));
+        i.setInformingStart(new Date("1970-12-03"));
+        i.setInformingEnd(new Date("1970-12-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-01-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-01-01"));
+        i.setReactionStart(new Date("1970-01-02"));
+        i.setReactionEnd(new Date("1970-01-02"));
+        i.setInformingStart(new Date("1970-01-03"));
+        i.setInformingEnd(new Date("1970-01-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-01-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-01-01"));
+        i.setReactionStart(new Date("1970-01-02"));
+        i.setReactionEnd(new Date("1970-01-02"));
+        i.setInformingStart(new Date("1970-01-03"));
+        i.setInformingEnd(new Date("1970-01-03"));
+        incidents.add(i);
+
+        i = new Incident();
+        i.setIncedentStart(new Date("1970-01-01"));
+        i.setPhoneNumber("7904764008");
+        i.setDescription("Канализационные воды затопили смотровой колодец элетросетей");
+        i.setConversationEnd(new Date("1970-01-01"));
+        i.setReactionStart(new Date("1970-01-02"));
+        i.setReactionEnd(new Date("1970-01-02"));
+        i.setInformingStart(new Date("1970-01-03"));
+        i.setInformingEnd(new Date("1970-01-03"));
+        incidents.add(i);
+
+
 
         //Window.alert(incidents.size()+"");
 
@@ -239,8 +399,7 @@ public class MainPanel extends Composite {
 
         // Create a Pager to control the table.
         SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
-        pager = new SimplePager(SimplePager.TextLocation.CENTER, pagerResources, false, 0, true);
-        pager.setDisplay(dataGrid);
+        //SimplePager pager = new SimplePager(SimplePager.TextLocation.CENTER, pagerResources, false, 0, true);
 
         // Add a selection model so we can select cells.
         final SelectionModel<Incident> selectionModel =
@@ -252,8 +411,12 @@ public class MainPanel extends Composite {
         initTableColumns(selectionModel, sortHandler);
 
 
-        dataGrid.setRowData(0, incidents);
-        dataGrid.setRowCount(10, true);
+        dataGrid.setRowData(0, dataProvider.getList());
+        //dataGrid.setRowCount(10, true);
+        //pager.setPageSize(10);
+        dataGrid.setPageSize(10);
+        pager.setDisplay(dataGrid);
+        //pager.setPageStart(1);
         //initTableColumns();
         //dataGrid.redraw();
         // Add the CellList to the adapter in the database.
@@ -278,8 +441,9 @@ public class MainPanel extends Composite {
                     }
                 };
         //dataGrid.addColumn(checkColumn, SafeHtmlUtils.fromSafeConstant("<br/>"));
-        dataGrid.addColumn(checkColumn, "Выбор");
-        dataGrid.setColumnWidth(checkColumn, 40, Style.Unit.PX);
+        dataGrid.addColumn(checkColumn, "x");
+        dataGrid.setColumnWidth(checkColumn, 30, Style.Unit.PX);
+
 
         DateTimeFormat dtf = DateTimeFormat.getFormat("yyyy-MM-dd HH:mm:ss");
         // Decription
@@ -300,7 +464,7 @@ public class MainPanel extends Composite {
         });
 
         //dataGrid.addColumn(dateStarted, "Поступление информации о проблеме"); //todo constants
-        dataGrid.addColumn(dateStarted, SafeHtmlUtils.fromSafeConstant("Поступление информации<br/>о проблеме"));
+        dataGrid.addColumn(dateStarted, SafeHtmlUtils.fromSafeConstant("Поступление<br/> информации<br/>о проблеме"));
 //        dateStarted.setFieldUpdater(new FieldUpdater<Incident, Date>() {
 //            @Override
 //            public void update(int index, Incident object, Date value) {
@@ -309,7 +473,7 @@ public class MainPanel extends Composite {
 //                //ContactDatabase.get().refreshDisplays();
 //            }
 //        });
-        dataGrid.setColumnWidth(dateStarted, 20, Style.Unit.PCT);
+        dataGrid.setColumnWidth(dateStarted, 15, Style.Unit.PCT);
 
         // Decription
         Column<Incident,String> description =
@@ -328,7 +492,7 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(description, "Описание"); //todo constants
+        dataGrid.addColumn(description, "Описание проблемы"); //todo constants
         description.setFieldUpdater(new FieldUpdater<Incident, String>() {
             @Override
             public void update(int index, Incident object, String value) {
@@ -339,7 +503,7 @@ public class MainPanel extends Composite {
                 //ContactDatabase.get().refreshDisplays();
             }
         });
-        dataGrid.setColumnWidth(description, 20, Style.Unit.PCT);
+        dataGrid.setColumnWidth(description, 30, Style.Unit.PCT);
 
         // End
         Column<Incident,Date> conversationEnd =
@@ -358,8 +522,8 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(conversationEnd, SafeHtmlUtils.fromSafeConstant("Окончание приема<br/>информации о проблеме"));
-        dataGrid.setColumnWidth(conversationEnd, 20, Style.Unit.PCT);
+        dataGrid.addColumn(conversationEnd, SafeHtmlUtils.fromSafeConstant("Окончание<br/> приема<br/>информации <br/>о проблеме"));
+        dataGrid.setColumnWidth(conversationEnd, 15, Style.Unit.PCT);
 
         // ReactionStart
         Column<Incident,Date> reactionStart =
@@ -378,8 +542,8 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(reactionStart, SafeHtmlUtils.fromSafeConstant("Начало информирования<br/>бригады о проблеме"));
-        dataGrid.setColumnWidth(reactionStart, 20, Style.Unit.PCT);
+        dataGrid.addColumn(reactionStart, SafeHtmlUtils.fromSafeConstant("Начало<br/> информирования<br/>бригады <br/>о проблеме"));
+        dataGrid.setColumnWidth(reactionStart, 15, Style.Unit.PCT);
 
 // ReactionStart
         Column<Incident,Date> reactionEnd =
@@ -398,8 +562,8 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(reactionEnd, SafeHtmlUtils.fromSafeConstant("Конец информирования<br/>бригады о проблеме"));
-        dataGrid.setColumnWidth(reactionEnd, 20, Style.Unit.PCT);
+        dataGrid.addColumn(reactionEnd, SafeHtmlUtils.fromSafeConstant("Конец<br/> информирования<br/>бригады <br/>о проблеме"));
+        dataGrid.setColumnWidth(reactionEnd, 15, Style.Unit.PCT);
 
         // InformingStart
         Column<Incident,Date> informingStart =
@@ -418,8 +582,8 @@ public class MainPanel extends Composite {
             }
         });
 
-        dataGrid.addColumn(informingStart, SafeHtmlUtils.fromSafeConstant("Начало информирования<br/>потребителей о проблеме"));
-        dataGrid.setColumnWidth(informingStart, 20, Style.Unit.PCT);
+        dataGrid.addColumn(informingStart, SafeHtmlUtils.fromSafeConstant("Начало<br/> информирования<br/>потребителей<br/> о проблеме"));
+        dataGrid.setColumnWidth(informingStart, 15, Style.Unit.PCT);
 
 // ReactionStart
         Column<Incident,Date> informingEnd =
@@ -434,13 +598,104 @@ public class MainPanel extends Composite {
         sortHandler.setComparator(informingEnd, new Comparator<Incident>() {
             @Override
             public int compare(Incident o1, Incident o2) {
-                return o1.getReactionEnd().compareTo(o2.getInformingEnd());
+                return o1.getInformingEnd().compareTo(o2.getInformingEnd());
             }
         });
 
-        dataGrid.addColumn(informingEnd, SafeHtmlUtils.fromSafeConstant("Конец информирования<br/>потребителей о проблеме"));
-        dataGrid.setColumnWidth(informingEnd, 20, Style.Unit.PCT);
+        dataGrid.addColumn(informingEnd, SafeHtmlUtils.fromSafeConstant("Конец<br/> информирования<br/>потребителей<br/> о проблеме"));
+        dataGrid.setColumnWidth(informingEnd, 15, Style.Unit.PCT);
 
+
+
+        Column<Incident,String> nodesAffected =
+                new Column<Incident, String>(new EditTextCell()) {
+                    @Override
+                    public String getValue(Incident object) {
+                        String toReturn=object.getNodesAffected().stream().map(Object::toString).collect(Collectors.joining(", "));
+                        if (toReturn!=null)
+                        {
+                            return  toReturn;
+                        }
+                        else
+                        {
+                            return "Нет списка узлов для инцидента";
+                        }
+                    }
+                };
+        nodesAffected.setSortable(true);
+        sortHandler.setComparator(nodesAffected, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return new Integer(o1.getNodesAffected().size()).compareTo(new Integer(o2.getNodesAffected().size()));
+            }
+        });
+
+        dataGrid.addColumn(nodesAffected, SafeHtmlUtils.fromSafeConstant("Узлы"));
+        dataGrid.setColumnWidth(nodesAffected, 10, Style.Unit.PCT);
+
+
+        Column<Incident,String> customersAffected =
+                new Column<Incident, String>(new EditTextCell()) {
+                    @Override
+                    public String getValue(Incident object) {
+                        //return "Value";
+                        String toReturn=object.getCutomersAffected().stream().map(Customer::getName).collect(Collectors.joining(", "));
+                        if (toReturn!=null)
+                        {
+                            return toReturn;
+                        }
+                        else
+                        {
+                            return "Нет списка потребителей для инцидента";
+                        }
+                    }
+                };
+        customersAffected.setSortable(true);
+        sortHandler.setComparator(customersAffected, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return new Integer(o1.getCutomersAffected().size()).compareTo(new Integer(o2.getCutomersAffected().size()));
+            }
+        });
+
+        dataGrid.addColumn(customersAffected, SafeHtmlUtils.fromSafeConstant("Потребители"));
+        dataGrid.setColumnWidth(customersAffected, 15, Style.Unit.PCT);
+
+        // RepairEnd
+        Column<Incident,Date> repairEnd =
+                new Column<Incident, Date>(new DatePickerCell(dtf)) {
+                    @Override
+                    public Date getValue(Incident object) {
+                        //return "Value";
+                        return object.getRepairEnd();
+                    }
+                };
+        repairEnd.setSortable(true);
+        sortHandler.setComparator(repairEnd, new Comparator<Incident>() {
+            @Override
+            public int compare(Incident o1, Incident o2) {
+                return o1.getRepairEnd().compareTo(o2.getRepairEnd());
+            }
+        });
+
+        dataGrid.addColumn(repairEnd, SafeHtmlUtils.fromSafeConstant("Окончание<br/> работ"));
+        dataGrid.setColumnWidth(repairEnd, 10, Style.Unit.PCT);
+
+
+        // RepairEnd
+        Column<Incident,ImageResource> wordExport =
+                new Column<Incident, ImageResource>(new ImageResourceCell())
+                {
+                    @Override
+                    public ImageResource getValue(Incident contact) {
+                        ImageResource imageResource = ApplicationResources.INSTANCE.msWordIcon();
+                        return imageResource;
+                    }
+                };
+
+        wordExport.setSortable(false);
+        dataGrid.addColumn(wordExport, SafeHtmlUtils.fromSafeConstant("Выгрузка<br/> акта"));
+        dataGrid.setColumnWidth(wordExport, 10, Style.Unit.PCT);
 
 
 //		// Last name.

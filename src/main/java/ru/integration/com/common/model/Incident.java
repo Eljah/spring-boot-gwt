@@ -1,5 +1,6 @@
 package ru.integration.com.common.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,12 +12,13 @@ public class Incident {
     String phoneNumber;
     Date incedentStart;
     Date conversationEnd;
-    List<Long> nodesAffected;
-    List<Customer> cutomersAffected;
+    List<Long> nodesAffected=new ArrayList<>();
+    List<Customer> cutomersAffected=new ArrayList<>();
     Date reactionStart;
     Date reactionEnd;
     Date informingStart;
     Date informingEnd;
+    Date repairEnd;
 
     public String getDescription() {
         return description;
@@ -96,5 +98,13 @@ public class Incident {
 
     public void setInformingEnd(Date informingEnd) {
         this.informingEnd = informingEnd;
+    }
+
+    public Date getRepairEnd() {
+        return repairEnd;
+    }
+
+    public void setRepairEnd(Date repairEnd) {
+        this.repairEnd = repairEnd;
     }
 }

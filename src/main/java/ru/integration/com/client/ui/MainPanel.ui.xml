@@ -29,7 +29,7 @@
                                       text="{messages.historyButton}" ui:field="historyButton"/>
                        <c:ImageButton resource="{res.loadIcon}" styleName="{res.style.sendButton}"
                                       text="{messages.loadButton}" ui:field="loadButton"/>-->
-                    <c:ImageButton styleName="{res.style.sendButton}"
+                    <c:ImageButton  styleName="{res.style.sendButton}"
                                    icon="fa fa-phone" text="Создать оповещение" ui:field="addButton"/>
                     <c:ImageButton styleName="{res.style.sendButton}"
                                    icon="fa fa-phone-square" text="Поиск в истории оповещений"
