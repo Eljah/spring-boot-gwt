@@ -66,6 +66,19 @@ public class IncidentWidget extends Composite {
     }
 
     @UiField
+    InlineLabel incidentConversationEndTime;
+
+    public void populateFieldsFromObject()
+    {
+        incidentStartedTime.setText(currentIncident.getIncedentStart().toLocaleString());
+        incidentPhoneNumber.setText(currentIncident.getPhoneNumber());
+        descriptionText.setText(currentIncident.getDescription());
+        nodesLabel.setText(currentIncident.getNodesAffected().stream().map(Object::toString).collect(Collectors.joining(", ")));
+        customersLabel.setText(currentIncident.getCutomersAffected().stream().map(Customer::getName).collect(Collectors.joining(", ")));
+        incidentConversationEndTime.setText(currentIncident.getConversationEnd().toLocaleString());
+    }
+
+    @UiField
     MapPanel map;
 
     @UiField

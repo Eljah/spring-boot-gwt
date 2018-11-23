@@ -58,6 +58,7 @@ public class IncidentController {
     @ResponseStatus(HttpStatus.OK)
     public Incident updateCurrentIncident(@RequestBody Incident incident) {
         current=incident;
+        incident.setConversationEnd(new Date());
         return current;
     }
 

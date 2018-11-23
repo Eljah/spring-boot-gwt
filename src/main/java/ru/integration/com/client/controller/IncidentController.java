@@ -87,8 +87,9 @@ public class IncidentController {
         _incidentModelHandler.add(incident);
         _incidentWidget = new IncidentWidget(incident, _eventBus);
         _mainPanel.newIncident(_incidentWidget);
-        _incidentWidget.setUpStartDate();
-        _incidentWidget.setIncidentPhoneNumber();
+        //_incidentWidget.setUpStartDate();
+       // _incidentWidget.setIncidentPhoneNumber();
+        _incidentWidget.populateFieldsFromObject();
 
     }
 
@@ -149,8 +150,7 @@ public class IncidentController {
                     if (text != null) {
                         incident2 = incidentMapper.read(text);
                         _incidentModelHandler.update(incident2);
-                        _eventBus.fireEvent(new NewIncidentEvent(incident));
-                        //_incidentWidget.
+                        _incidentWidget.populateFieldsFromObject();
                     }
 
                 } else {

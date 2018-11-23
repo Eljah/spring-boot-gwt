@@ -61,7 +61,7 @@
             </g:FlowPanel>
             <g:FlowPanel>
                 <g:InlineLabel styleName="{res.style.todoText}" text="Время окончания регистрации заявки:"/>
-                <g:InlineLabel styleName="{res.style.todoText}"/>
+                <g:InlineLabel styleName="{res.style.todoText}" ui:field="incidentConversationEndTime"/>
             </g:FlowPanel>
             <g:FlowPanel>
                 <g:InlineLabel styleName="{res.style.todoText}" text="Время начала информирования бригады:"/>
