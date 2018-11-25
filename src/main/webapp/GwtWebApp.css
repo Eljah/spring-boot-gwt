@@ -2,11 +2,16 @@
 
 
 /** Example rules used by the template application (remove for your app) */
+body
+{
+    background-color: transparent;
+}
+
 h1 {
   font-size: 2em;
   font-weight: bold;
   color: #777777;
-  margin: 10px 0px 10px;
+  margin: 10px 0px 10px; background-color: transparent;
   text-align: center;
 }
 
