@@ -36,7 +36,7 @@ public class MapPanel extends FlowPanel {
         this.height = height;
         this.width = width;
 
-//        OpenLayers.setProxyHost("olproxy?targetURL=");
+        OpenLayers.setProxyHost("olproxy?targetURL=");
 //
 //        //create some MapOptions
 //        MapOptions defaultMapOptions = new MapOptions();
@@ -139,6 +139,48 @@ public class MapPanel extends FlowPanel {
 
         mapWidget.getMap().addLayer(osmMapnik);
         mapWidget.getMap().addLayer(osmCycle);
+
+
+        WMSParams wmsParams = new WMSParams();
+        wmsParams.setFormat("image/png");
+        wmsParams.setLayers("topp:tasmania_state_boundaries");
+        wmsParams.setStyles("");
+
+        WMSOptions wmsLayerParams = new WMSOptions();
+        wmsLayerParams.setUntiled();
+        wmsLayerParams.setTransitionEffect(TransitionEffect.RESIZE);
+        wmsLayerParams.setIsBaseLayer(false);
+        wmsLayerParams.setDisplayOutsideMaxExtent(true);
+
+        String wmsUrl = "http://localhost:8181/geoserver/topp/wms";
+        //String wmsUrl = "http://map.etomesto.ru/kazan/1887/";
+
+        WMS wmsLayer = new WMS("Basic WMS", wmsUrl, wmsParams, wmsLayerParams);
+
+        //Add the WMS to the map
+        Map map = mapWidget.getMap();
+        map.addLayer(wmsLayer);
+
+        //Create a WFS layer
+        WFSProtocolOptions wfsProtocolOptions = new WFSProtocolOptions();
+        wfsProtocolOptions.setUrl("http://localhost:8181/geoserver/wfs");
+        wfsProtocolOptions.setFeatureType("tasmania_roads");
+        wfsProtocolOptions.setFeatureNameSpace("http://www.openplans.org/topp");
+        //if your wms is in a different projection use wfsProtocolOptions.setSrsName(LAMBERT72);
+
+        WFSProtocol wfsProtocol = new WFSProtocol(wfsProtocolOptions);
+
+        VectorOptions vectorOptions = new VectorOptions();
+        vectorOptions.setProtocol(wfsProtocol);
+        vectorOptions.setStrategies(new Strategy[]{new BBoxStrategy()});
+        //if your wms is in a different projection use vectorOptions.setProjection(LAMBERT72);
+
+
+
+        Vector wfsLayer = new Vector("wfsExample", vectorOptions);
+        map.addLayer(wfsLayer);
+
+
 
         LonLat lonLat = new LonLat(49.049637, 55.836717);
         lonLat.transform("EPSG:4326", mapWidget.getMap().getProjection()); //transform lonlat (provided in EPSG:4326) to OSM coordinate system (the map projection)
