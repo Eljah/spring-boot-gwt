@@ -14,6 +14,7 @@ import org.gwtopenmaps.openlayers.client.protocol.WFSProtocol;
 import org.gwtopenmaps.openlayers.client.protocol.WFSProtocolOptions;
 import org.gwtopenmaps.openlayers.client.strategy.BBoxStrategy;
 import org.gwtopenmaps.openlayers.client.strategy.Strategy;
+import org.gwtopenmaps.openlayers.client.tile.TileOptions;
 import ru.integration.com.client.ui.MainPanel;
 
 /**
@@ -137,8 +138,8 @@ public class MapPanel extends FlowPanel {
         osmMapnik.setIsBaseLayer(true);
         osmCycle.setIsBaseLayer(true);
 
-        mapWidget.getMap().addLayer(osmMapnik);
-        mapWidget.getMap().addLayer(osmCycle);
+        //mapWidget.getMap().addLayer(osmMapnik);
+        //mapWidget.getMap().addLayer(osmCycle);
 
 
         WMSParams wmsParams = new WMSParams();
@@ -150,6 +151,12 @@ public class MapPanel extends FlowPanel {
         wmsLayerParams.setUntiled();
         wmsLayerParams.setTransitionEffect(TransitionEffect.RESIZE);
         wmsLayerParams.setIsBaseLayer(false);
+        //TileOptions tileOptions=new TileOptions();
+        //tileOptions.setParameter();
+        //wmsLayerParams.setTileOptions();
+        wmsParams.setParameter("transparent", "true");
+        //wmsLayerParams.setMaxExtent(new Bounds(0,0,100,100));
+        wmsLayerParams.setSingleTile(false);
         wmsLayerParams.setDisplayOutsideMaxExtent(true);
 
         String wmsUrl = "http://localhost:8181/geoserver/topp/wms";
@@ -157,9 +164,12 @@ public class MapPanel extends FlowPanel {
 
         WMS wmsLayer = new WMS("Basic WMS", wmsUrl, wmsParams, wmsLayerParams);
 
+
+
         //Add the WMS to the map
         Map map = mapWidget.getMap();
         map.addLayer(wmsLayer);
+        map.addLayer(osmMapnik);
 
         //Create a WFS layer
         WFSProtocolOptions wfsProtocolOptions = new WFSProtocolOptions();
