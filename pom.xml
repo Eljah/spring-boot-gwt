@@ -1,142 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-	<!-- POM -->
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>ru.integration.com</groupId>
-	<artifactId>gwt-boot</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>Spring Boot GWT WebApp Demo</name>
+    <!-- POM -->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>ru.integration.com</groupId>
+    <artifactId>gwt-boot</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <name>Spring Boot GWT WebApp Demo</name>
 
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.1.RELEASE</version>
-	</parent>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.4.1.RELEASE</version>
+    </parent>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<start-class>ru.integration.com.server.ServerApplication</start-class>
-		<java.version>1.8</java.version>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <start-class>ru.integration.com.server.ServerApplication</start-class>
+        <java.version>1.8</java.version>
         <jetty.version>9.2.17.v20160517</jetty.version>
 
-		<gwtVersion>2.8.0</gwtVersion>
-		<googleGin>2.1.2</googleGin>
-		<outputFolder>${project.build.directory}/${artifactId}</outputFolder>
-	</properties>
-
-	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-validator</artifactId>
-		</dependency>
-		
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-user</artifactId>
-			<version>${gwtVersion}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.gwt.inject</groupId>
-			<artifactId>gin</artifactId>
-			<version>${googleGin}</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
-		<!--<dependency>
-			<groupId>com.bytebybyte.gwt</groupId>
-			<artifactId>fontawesome-lib</artifactId>
-			<version>4.6.3</version>
-			<scope>provided</scope>
-		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
-		<dependency>
-			<groupId>com.asayama.gwt.fa</groupId>
-			<artifactId>gwt-font-awesome</artifactId>
-			<version>0.1.4</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.gwtopenmaps.openlayers/gwt-openlayers-client -->
-		<dependency>
-			<groupId>org.gwtopenmaps.openlayers</groupId>
-			<artifactId>gwt-openlayers-client</artifactId>
-			<version>1.1.0</version>
-		</dependency>
-		<!-- https://mvnrepository.com/artifact/org.webjars/openlayers -->
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>openlayers</artifactId>
-			<version>5.2.0</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.github.nmorel.gwtjackson</groupId>
-			<artifactId>gwt-jackson</artifactId>
-			<version>0.15.4</version>
-			<scope>provided</scope>
-		</dependency>
-
-	</dependencies>
+        <gwtVersion>2.8.0</gwtVersion>
+        <googleGin>2.1.2</googleGin>
+        <outputFolder>${project.build.directory}/${artifactId}</outputFolder>
+    </properties>
 
 
-	<build>
-		<finalName>${project.artifactId}</finalName>
-		<outputDirectory>${outputFolder}/WEB-INF/classes</outputDirectory>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<version>${gwtVersion}</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<runTarget>GwtWebApp.html</runTarget>
-					<hostedWebapp>${outputFolder}</hostedWebapp>
-					<webappDirectory>${outputFolder}</webappDirectory>
-				</configuration>
-			</plugin>
-			<!-- Copy static web files before executing gwt:run -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-war-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>exploded</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<webappDirectory>${outputFolder}</webappDirectory>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jetty</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwtVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt.inject</groupId>
+            <artifactId>gin</artifactId>
+            <version>${googleGin}</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
+        <!--<dependency>
+            <groupId>com.bytebybyte.gwt</groupId>
+            <artifactId>fontawesome-lib</artifactId>
+            <version>4.6.3</version>
+            <scope>provided</scope>
+        </dependency>-->
+        <!-- https://mvnrepository.com/artifact/com.asayama.gwt.fa/gwt-font-awesome -->
+        <dependency>
+            <groupId>com.asayama.gwt.fa</groupId>
+            <artifactId>gwt-font-awesome</artifactId>
+            <version>0.1.4</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.gwtopenmaps.openlayers/gwt-openlayers-client -->
+        <dependency>
+            <groupId>org.gwtopenmaps.openlayers</groupId>
+            <artifactId>gwt-openlayers-client</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.gwtopenmaps.openlayers</groupId>
+            <artifactId>gwt-openlayers-server</artifactId>
+            <version>1.1.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.webjars/openlayers -->
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>openlayers</artifactId>
+            <version>5.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.nmorel.gwtjackson</groupId>
+            <artifactId>gwt-jackson</artifactId>
+            <version>0.15.4</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <outputDirectory>${outputFolder}/WEB-INF/classes</outputDirectory>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>gwt-maven-plugin</artifactId>
+                <version>${gwtVersion}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <runTarget>GwtWebApp.html</runTarget>
+                    <hostedWebapp>${outputFolder}</hostedWebapp>
+                    <!--<webappDirectory>${outputFolder}</webappDirectory>-->
+                    <persistentunitcachedir>${project.build.directory}</persistentunitcachedir>
+                    <webappDirectory>${project.build.directory}/${artifactId}/WEB-INF/classes/public</webappDirectory>
+                </configuration>
+            </plugin>
+            <!--Copy static web files before executing gwt:run-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <webappDirectory>${outputFolder}</webappDirectory>
+                        </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
