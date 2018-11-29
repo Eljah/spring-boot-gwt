@@ -21,7 +21,7 @@
 
 .scrollable {
    overflow-y: scroll;
-   height: 600px;
+   height: 400px;
    width: 100%;
 }
 
@@ -30,7 +30,7 @@
 	float: center;
 	margin: 10px;
 	border-radius: 10px;
-	background: none repeat scroll 0 0 #FAF9F5;
+	background: none repeat scroll 0 0;
 	margin-left: auto;
 	padding: 10px;
 	margin-right: auto;
@@ -43,11 +43,13 @@
 	float: center;
 	margin: 10px;
 	border-radius: 10px;
-	background: none repeat scroll 0 0 #E5ECF9;
+	background: none repeat scroll 0 0;
 	margin-left: auto;
 	padding: 10px;
 	margin-right: auto;
 	width: 90%;
+    height: 60px;
+    vertical-align: middle;
 }
 
 .todoText {
@@ -65,7 +67,7 @@
 	font-family: arial, sans-serif;
 	font-size: 11px;
 	font-weight: bold;
-	height: 40px;
+	height: 35px;
 	margin: 7px 7px;
 	padding: 0 5px;
 	background-color: #F5F5F5;

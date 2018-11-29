@@ -414,7 +414,7 @@ public class MainPanel extends Composite {
         dataGrid.setRowData(0, dataProvider.getList());
         //dataGrid.setRowCount(10, true);
         //pager.setPageSize(10);
-        dataGrid.setPageSize(10);
+        dataGrid.setPageSize(5);
         pager.setDisplay(dataGrid);
         //pager.setPageStart(1);
         //initTableColumns();
