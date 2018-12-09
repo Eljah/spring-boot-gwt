@@ -1,0 +1,17 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui"
+             xmlns:c="urn:import:org.pepstock.charba.client">
+    <!-- import for i18n messages -->
+    <ui:with type="ru.integration.com.client.resource.Messages"
+             field="messages"/>
+    <!-- import for resources bundle -->
+    <ui:with type="ru.integration.com.client.resource.ApplicationResources"
+             field="res"/>
+
+    <g:VerticalPanel styleName="{res.style.todoPanel}">
+            <g:cell width="10%" verticalAlignment="middle" horizontalAlignment="center">
+                <c:LineChart ui:field="chart"/>
+            </g:cell>
+    </g:VerticalPanel>
+</ui:UiBinder> 

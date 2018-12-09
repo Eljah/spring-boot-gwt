@@ -89,6 +89,8 @@ public class MainPanel extends Composite {
     @UiField
     FlowPanel incidentPanel;
 
+    @UiField
+    ChartWidget chartPanel;
 
     //@UiField
     FlowPanel todoPanel;

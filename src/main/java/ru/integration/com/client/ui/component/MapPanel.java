@@ -13,6 +13,7 @@ import org.gwtopenmaps.openlayers.client.layer.*;
 import org.gwtopenmaps.openlayers.client.protocol.WFSProtocol;
 import org.gwtopenmaps.openlayers.client.protocol.WFSProtocolOptions;
 import org.gwtopenmaps.openlayers.client.strategy.BBoxStrategy;
+import org.gwtopenmaps.openlayers.client.strategy.SaveStrategy;
 import org.gwtopenmaps.openlayers.client.strategy.Strategy;
 import org.gwtopenmaps.openlayers.client.tile.TileOptions;
 import ru.integration.com.client.ui.MainPanel;
@@ -83,37 +84,7 @@ public class MapPanel extends FlowPanel {
 //        map.addLayer(wfsLayer);
 //
 //        //Create some styles for the wfs
-//        final Style normalStyle = new Style(); //the normal style
-//        normalStyle.setStrokeWidth(3);
-//        normalStyle.setStrokeColor("#FF0000");
-//        normalStyle.setFillColor("#FFFF00");
-//        normalStyle.setFillOpacity(0.8);
-//        normalStyle.setStrokeOpacity(0.8);
-//        final Style selectedStyle = new Style(); //the style when a feature is selected, or temporaly selected
-//        selectedStyle.setStrokeWidth(3);
-//        selectedStyle.setStrokeColor("#FFFF00");
-//        selectedStyle.setFillColor("#FF0000");
-//        selectedStyle.setFillOpacity(0.8);
-//        selectedStyle.setStrokeOpacity(0.8);
-//        final StyleMap styleMap = new StyleMap(normalStyle, selectedStyle,
-//                selectedStyle);
-//        wfsLayer.setStyleMap(styleMap);
-//
-//        //Create a ModifyFeature control that enables WFS modification
-//        final ModifyFeatureOptions modifyFeatureControlOptions = new ModifyFeatureOptions();
-//        modifyFeatureControlOptions.setMode(ModifyFeature.RESHAPE); //options are RESHAPE, RESIZE, ROTATE and DRAG
-//        final ModifyFeature modifyFeatureControl = new ModifyFeature(wfsLayer,
-//                modifyFeatureControlOptions);
-//
-//        map.addControl(modifyFeatureControl);
-//        modifyFeatureControl.activate();
-
-        /*
-         * Note that for saving back to the WFS you can use
-         * final SaveStrategy saveStrategy = new SaveStrategy();
-         * saveStrategy.setAuto(true);
-         * vectorOptions.setStrategies(new Strategy[] {new BBoxStrategy(), saveStrategy }); // (instead of only BBOXStrategy)
-         */
+//        /
 
 //        //Lets add some default controls to the map
 //        map.addControl(new LayerSwitcher()); //+ sign in the upperright corner to display the layer switcher
@@ -173,22 +144,57 @@ public class MapPanel extends FlowPanel {
 
         //Create a WFS layer
         WFSProtocolOptions wfsProtocolOptions = new WFSProtocolOptions();
-        wfsProtocolOptions.setUrl("http://localhost:8181/geoserver/wfs");
+        wfsProtocolOptions.setUrl("http://localhost:8181/geoserver/topp/wfs");
         wfsProtocolOptions.setFeatureType("tasmania_roads");
         wfsProtocolOptions.setFeatureNameSpace("http://www.openplans.org/topp");
+        wfsProtocolOptions.setSrsName("EPSG:4326");
         //if your wms is in a different projection use wfsProtocolOptions.setSrsName(LAMBERT72);
 
         WFSProtocol wfsProtocol = new WFSProtocol(wfsProtocolOptions);
 
+
         VectorOptions vectorOptions = new VectorOptions();
         vectorOptions.setProtocol(wfsProtocol);
-        vectorOptions.setStrategies(new Strategy[]{new BBoxStrategy()});
+        //         * Note that for saving back to the WFS you can use
+        final SaveStrategy saveStrategy = new SaveStrategy();
+        saveStrategy.setAuto(true);
+        vectorOptions.setStrategies(new Strategy[] {new BBoxStrategy(), saveStrategy }); // (instead of only BBOXStrategy)
+        //vectorOptions.setStrategies(new Strategy[]{new BBoxStrategy()});
         //if your wms is in a different projection use vectorOptions.setProjection(LAMBERT72);
-
+        //please note https://gis.stackexchange.com/questions/143223/read-only-exception-wfs/258203 to edit
 
 
         Vector wfsLayer = new Vector("wfsExample", vectorOptions);
         map.addLayer(wfsLayer);
+
+
+        final Style normalStyle = new Style(); //the normal style
+        normalStyle.setStrokeWidth(3);
+        normalStyle.setStrokeColor("#FF0000");
+        normalStyle.setFillColor("#FFFF00");
+        normalStyle.setFillOpacity(0.8);
+        normalStyle.setStrokeOpacity(0.8);
+        final Style selectedStyle = new Style(); //the style when a feature is selected, or temporaly selected
+        selectedStyle.setStrokeWidth(3);
+        selectedStyle.setStrokeColor("#FFFF00");
+        selectedStyle.setFillColor("#FF0000");
+        selectedStyle.setFillOpacity(0.8);
+        selectedStyle.setStrokeOpacity(0.8);
+        final StyleMap styleMap = new StyleMap(normalStyle, selectedStyle,
+                selectedStyle);
+        wfsLayer.setStyleMap(styleMap);
+
+        //Create a ModifyFeature control that enables WFS modification
+        final ModifyFeatureOptions modifyFeatureControlOptions = new ModifyFeatureOptions();
+        modifyFeatureControlOptions.setMode(ModifyFeature.RESHAPE); //options are RESHAPE, RESIZE, ROTATE and DRAG
+        final ModifyFeature modifyFeatureControl = new ModifyFeature(wfsLayer,
+                modifyFeatureControlOptions);
+
+        map.addControl(modifyFeatureControl);
+        modifyFeatureControl.activate();
+
+
+//         *
 
 
 
@@ -199,6 +205,9 @@ public class MapPanel extends FlowPanel {
         mapWidget.getMap().addLayer(vectorLayer);
 
         mapWidget.getMap().addControl(new LayerSwitcher());
+        mapWidget.getMap().addControl(new OverviewMap()); //+ sign in the lowerright to display the overviewmap
+        mapWidget.getMap().addControl(new ScaleLine()); //Display the scaleline
+
         this.add(mapWidget);
     }
 

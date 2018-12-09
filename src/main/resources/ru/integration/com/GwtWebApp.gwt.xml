@@ -20,6 +20,8 @@
 	<!-- Gin -->
 	<inherits name="com.google.gwt.inject.Inject" />
 
+	<inherits name="org.pepstock.charba.Charba"/>
+
 	<!-- French language, independent of country -->
 	<extend-property name="locale" values="ru" />
 

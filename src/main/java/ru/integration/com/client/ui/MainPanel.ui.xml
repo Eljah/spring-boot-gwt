@@ -113,6 +113,13 @@
                         </g:VerticalPanel>
                     </g:VerticalPanel>
                 </g:Tab>
+                <g:Tab text="Показания приборов">
+                    <g:ScrollPanel>
+                        <g:VerticalPanel styleName="{res.style.todoblock}">
+                            <t:ChartWidget ui:field="chartPanel"/>
+                        </g:VerticalPanel>
+                    </g:ScrollPanel>
+                </g:Tab>
             </g:TabPanel>
         </g:center>
     </g:DockLayoutPanel>
